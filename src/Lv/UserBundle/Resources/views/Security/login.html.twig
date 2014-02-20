@@ -1,0 +1,25 @@
+{% extends "::layout-login.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block body %}
+{% if error %}
+    <div>{{ error|trans }}</div>
+{% endif %}
+<form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
+	<h2 class="form-signin-heading">S'authentifier</h2>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+    <label for="username">{{ 'Pseudo'|trans }}</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Pseudo" />
+
+    <label for="password">{{ 'Mot de passe'|trans }}</label>
+    <input type="password" id="password" name="_password" required="required" placeholder="Mot de passe"  />
+    <div class="clearfix"></div>
+    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+    <label for="remember_me">{{ 'Se souvenir de moi'|trans }}</label>
+    <div class="clearfix"></div>
+    <!--<input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />-->
+    <button type="submit" class="btn btn-large btn-primary">Sign in</button>
+</form>
+{% endblock body %}
