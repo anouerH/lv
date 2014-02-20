@@ -1,0 +1,5 @@
+lv_salade:
+    resource: "@LvSaladeBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
