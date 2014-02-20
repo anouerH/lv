@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Lv\SaladeBundle\LvSaladeBundle(),
             new Lv\UserBundle\LvUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

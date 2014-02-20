@@ -8,10 +8,8 @@
     {% block stylesheets %}
       <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
     {% endblock %}
+    <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
 
-
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -86,21 +84,19 @@
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
     <script src="../../assets/js/docs.min.js"></script>-->
-
-    <script src="{{ asset('/js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-transition.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-alert.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-modal.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-dropdown.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-scrollspy.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-tab.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-tooltip.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-popover.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-button.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-collapse.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-carousel.js') }}"></script>
-    <script src="{{ asset('js/bootstrap-typeahead.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    
+
+    {% javascripts
+      '@LvSaladeBundle/Resources/public/js/underscore-min.js'
+      '@LvSaladeBundle/Resources/public/js/jquery-ui-1.8.22.custom.min.js'
+      '@PunkAveFileUploaderBundle/Resources/public/js/jquery.fileupload.js'
+      '@PunkAveFileUploaderBundle/Resources/public/js/jquery.iframe-transport.js'
+      '@PunkAveFileUploaderBundle/Resources/public/js/FileUploader.js' %}
+      <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
 
   </body>
 </html>

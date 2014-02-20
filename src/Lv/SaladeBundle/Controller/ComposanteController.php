@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Lv\SaladeBundle\Entity\Composante;
 use Lv\SaladeBundle\Form\ComposanteType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Composante controller.
@@ -244,4 +245,22 @@ class ComposanteController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     *
+     * @Route("/upload", name="composante_upload")
+     * @Template()
+     */
+    public function uploadAction()
+    {
+        $editId = $this->getRequest()->get('editId');
+        if (!preg_match('/^\d+$/', $editId))
+        {
+            //throw new Exception("Bad edit id");
+        }
+
+        $this->get('punk_ave.file_uploader')->handleFileUpload(array('folder' => 'tmp/attachments/' . $editId));
+    }
+
+
 }

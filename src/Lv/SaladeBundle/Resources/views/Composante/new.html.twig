@@ -1,6 +1,8 @@
 {% extends "::layout.html.twig" %}
 
 {% block body -%}
+    {# Underscore templates for the uploader #}
+    {% include "PunkAveFileUploaderBundle:Default:templates.html.twig" %}
     <h1 class="page-header">Composante creation</h1>
     {#{ form(form) }#}
 
@@ -85,7 +87,11 @@
             </div>
         </div>
 
+        <div style="clear:both;"></div>
 
+        {# Hydrated by javascript #}
+        ddddddddd
+        <div class="file-uploader"></div>
 
         {{ form_rest(form) }}
         <div>
@@ -105,4 +111,20 @@
 			</a>
 		</li>
 	</ul>
+
+<script type="text/javascript">
+
+    // Enable the file uploader
+
+    $(function() {
+        new PunkAveFileUploader({
+            'uploadUrl': {{ path('composante_upload', { id: entity.image }) | json_encode | raw }},
+            'viewUrl': {{ ('/uploads/tmp/attachments/' ~ entity.image)  | json_encode | raw }},
+            'el': '.file-uploader',
+            'existingFiles': {{ punkave_get_files('tmp/attachments/' ~ entity.image) | json_encode | raw }},
+            'delaySubmitWhileUploading': '.edit-form'
+        });
+    });
+</script>
+
 {% endblock %}
