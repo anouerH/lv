@@ -98,6 +98,13 @@ class Composante
      */
     private $updatedAt;
 
+    /**
+    * @ORM\ManyToOne(targetEntity="Lv\SaladeBundle\Entity\Famille")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $famille;
+
+
 
     public function __construct()
     {

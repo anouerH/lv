@@ -16,6 +16,7 @@ class ComposanteType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('famille', 'entity', array('class' => 'LvSaladeBundle:Famille','empty_value' => 'Sélectionner une valeur'))
             ->add('prixUnitaire')
             ->add('prix')
             //->add('image')

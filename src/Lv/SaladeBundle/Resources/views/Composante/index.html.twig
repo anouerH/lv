@@ -8,6 +8,7 @@
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
+                <th>Famille</th>
                 <th>Prixunitaire</th>
                 <th>Prix</th>
                 <th>Image</th>
@@ -26,6 +27,7 @@
             <tr>
                 <td><a href="{{ path('composante_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.nom }}</td>
+                <td>{{ entity.famille }}</td>
                 <td>{{ entity.prixUnitaire }}</td>
                 <td>{{ entity.prix }}</td>
                 <td>{{ entity.image }}</td>
@@ -37,12 +39,12 @@
                 <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
-                <ul>
+                <ul class="list-inline">
                     <li>
-                        <a href="{{ path('composante_show', { 'id': entity.id }) }}">show</a>
+                        <a class="glyphicon glyphicon-eye-open" href="{{ path('composante_show', { 'id': entity.id }) }}"></a>
                     </li>
                     <li>
-                        <a href="{{ path('composante_edit', { 'id': entity.id }) }}">edit</a>
+                        <a class="glyphicon glyphicon-edit" href="{{ path('composante_edit', { 'id': entity.id }) }}"></a>
                     </li>
                 </ul>
                 </td>
@@ -51,9 +53,9 @@
         </tbody>
     </table>
 
-        <ul>
+        <ul class="list-inline">
         <li>
-            <a href="{{ path('composante_new') }}">
+            <a class ="glyphicon glyphicon-plus" href="{{ path('composante_new') }}">
                 Create a new entry
             </a>
         </li>

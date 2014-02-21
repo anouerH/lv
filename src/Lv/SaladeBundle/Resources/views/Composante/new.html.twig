@@ -18,6 +18,18 @@
                 {{ form_errors(form.nom) }}
             </div>
         </div>
+
+
+        <div class="form-group">
+
+            {{ form_label(form.famille, 'Famille', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-6">
+                
+                {{ form_widget(form.famille, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.famille) }}
+
+            </div>
+        </div>
         
         
 
@@ -90,7 +102,7 @@
         <div style="clear:both;"></div>
 
         {# Hydrated by javascript #}
-        ddddddddd
+        
         <div class="file-uploader"></div>
 
         {{ form_rest(form) }}
@@ -104,9 +116,9 @@
 
 
 
-	<ul class="record_actions">
+	<ul class="record_actions list-inline">
 		<li>
-			<a href="{{ path('composante') }}">
+			<a  class="glyphicon glyphicon-list-alt" href="{{ path('composante') }}">
 			Back to the list
 			</a>
 		</li>

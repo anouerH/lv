@@ -1,0 +1,47 @@
+{% extends "::layout.html.twig" %}
+
+{% block body -%}
+    <h1>Famille creation</h1>
+
+    {#{ form(form) }#}
+
+    <form action="{{ path('famille_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+
+    	<div class="form-group">
+			{{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-6">
+                
+                {{ form_widget(form.nom, {'attr': {'class': 'form-control','placeholder': 'Nom'}}) }}
+                {{ form_errors(form.nom) }}
+            </div>
+        </div>
+
+        
+
+
+        <div class="form-group ">
+            {{ form_label(form.description, 'Description', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-6">
+            {{ form_widget(form.description, {'attr': {'class': 'form-control','placeholder': 'Description','rows':'5'}}) }}
+            {{ form_errors(form.description) }}
+            </div>
+        </div>
+        {{ form_rest(form) }}
+
+        <div>
+        	<button type="submit" class="btn btn-primary">Envoyer</button>
+        </div>
+
+
+    </form>
+
+
+
+        <ul class="record_actions list-inline">
+            <li>
+                <a class="glyphicon glyphicon-list-alt" href="{{ path('famille') }}">
+                    Back to the list
+                </a>
+            </li>
+        </ul>
+{% endblock %}

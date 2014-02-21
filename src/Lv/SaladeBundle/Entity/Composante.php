@@ -98,6 +98,13 @@ class Composante
      */
     private $updatedAt;
 
+    /**
+    * @ORM\ManyToOne(targetEntity="Lv\SaladeBundle\Entity\Famille")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $famille;
+
+
 
     public function __construct()
     {
@@ -366,5 +373,28 @@ class Composante
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set famille
+     *
+     * @param \Lv\SaladeBundle\Entity\Famille $famille
+     * @return Composante
+     */
+    public function setFamille(\Lv\SaladeBundle\Entity\Famille $famille)
+    {
+        $this->famille = $famille;
+
+        return $this;
+    }
+
+    /**
+     * Get famille
+     *
+     * @return \Lv\SaladeBundle\Entity\Famille 
+     */
+    public function getFamille()
+    {
+        return $this->famille;
     }
 }
