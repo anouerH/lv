@@ -163,10 +163,10 @@ class ComposanteController extends Controller
     {
         $form = $this->createForm(new ComposanteType(), $entity, array(
             'action' => $this->generateUrl('composante_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        //$form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
@@ -174,7 +174,7 @@ class ComposanteController extends Controller
      * Edits an existing Composante entity.
      *
      * @Route("/{id}", name="composante_update")
-     * @Method("PUT")
+     * @Method("POST")
      * @Template("LvSaladeBundle:Composante:edit.html.twig")
      */
     public function updateAction(Request $request, $id)

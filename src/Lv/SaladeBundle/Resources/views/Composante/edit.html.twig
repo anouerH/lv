@@ -2,7 +2,122 @@
 {% block body %}
     <h1 class="page-header">Composante edit</h1>
 
-    {{ form(edit_form) }}
+    {#{ form(edit_form) }#}
+    <form action="{{ path('composante_update', { id: entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-horizontal">
+    	{#{ form_widget(edit_form) }#}
+
+
+
+
+
+
+
+    	<div class="form-group">
+			{{ form_label(edit_form.nom, 'Nom', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-6">
+                
+                {{ form_widget(edit_form.nom, {'attr': {'class': 'form-control','placeholder': 'Nom'}}) }}
+                {{ form_errors(edit_form.nom) }}
+            </div>
+        </div>
+
+
+        <div class="form-group">
+
+            {{ form_label(edit_form.famille, 'Famille', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-6">
+                
+                {{ form_widget(edit_form.famille, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(edit_form.famille) }}
+
+            </div>
+        </div>
+        
+        
+
+        <div class="form-group">
+			{{ form_label(edit_form.prixUnitaire, 'Prix unitaire', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-3">
+                
+                {{ form_widget(edit_form.prixUnitaire, {'attr': {'class': 'form-control','placeholder': 'Prix unitaire'}}) }}
+                {{ form_errors(edit_form.prixUnitaire) }}
+            </div>
+        </div>
+
+
+        <div class="form-group">
+			{{ form_label(edit_form.prix, 'Prix', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-3">
+                
+                {{ form_widget(edit_form.prix, {'attr': {'class': 'form-control','placeholder': 'Prix'}}) }}
+                {{ form_errors(edit_form.prix) }}
+            </div>
+        </div>
+
+        
+
+        <div class="form-group">
+			{{ form_label(edit_form.nomPublic, 'Nom public', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-6">
+                
+                {{ form_widget(edit_form.nomPublic, {'attr': {'class': 'form-control','placeholder': 'Nom public'}}) }}
+                {{ form_errors(edit_form.nomPublic) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+			{{ form_label(edit_form.calories, 'Calories', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-3">
+                
+                {{ form_widget(edit_form.calories, {'attr': {'class': 'form-control','placeholder': 'Calories'}}) }}
+                {{ form_errors(edit_form.calories) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+			{{ form_label(edit_form.grammage, 'Grammage', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-3">
+                
+                {{ form_widget(edit_form.grammage, {'attr': {'class': 'form-control','placeholder': 'Grammage'}}) }}
+                {{ form_errors(edit_form.grammage) }}
+            </div>
+        </div>
+         <div class="form-group">
+            {{ form_label(edit_form.etat, 'Etat'|raw, {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-3">
+                {% for child in edit_form.etat %}
+                    <label class="radio-inline">
+                       {{ form_widget(child) }}{{ form_label(child) }}
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group">
+			{{ form_label(edit_form.ordre, 'Ordre', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-3">
+                
+                {{ form_widget(edit_form.ordre, {'attr': {'class': 'form-control','placeholder': 'Ordre'}}) }}
+                {{ form_errors(edit_form.ordre) }}
+            </div>
+        </div>
+
+        <div style="clear:both;"></div>
+
+        {# Hydrated by javascript #}
+        
+        <div class="file-uploader"></div>
+
+        {{ form_rest(edit_form) }}
+        <div>
+        	<button type="submit" class="btn btn-primary">Envoyer</button>
+        </div>
+        
+
+
+
+
+
+    </form>
 
         <ul class="record_actions">
     <li>
