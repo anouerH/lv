@@ -7,22 +7,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Lv\SaladeBundle\Entity\Composante;
-use Lv\SaladeBundle\Form\ComposanteType;
-use Symfony\Component\HttpFoundation\Response;
+use Lv\SaladeBundle\Entity\SousFamille;
+use Lv\SaladeBundle\Form\SousFamilleType;
 
 /**
- * Composante controller.
+ * SousFamille controller.
  *
- * @Route("/composante")
+ * @Route("/sousfamille")
  */
-class ComposanteController extends Controller
+class SousFamilleController extends Controller
 {
 
     /**
-     * Lists all Composante entities.
+     * Lists all SousFamille entities.
      *
-     * @Route("/", name="composante")
+     * @Route("/", name="sousfamille")
      * @Method("GET")
      * @Template()
      */
@@ -30,23 +29,22 @@ class ComposanteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('LvSaladeBundle:Composante')->findAll();
+        $entities = $em->getRepository('LvSaladeBundle:SousFamille')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Composante entity.
+     * Creates a new SousFamille entity.
      *
-     * @Route("/", name="composante_create")
+     * @Route("/", name="sousfamille_create")
      * @Method("POST")
-     * @Template("LvSaladeBundle:Composante:new.html.twig")
+     * @Template("LvSaladeBundle:SousFamille:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Composante();
-        $entity->setImage($request->query->get('editId'));
+        $entity = new SousFamille();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -55,7 +53,7 @@ class ComposanteController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('composante_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('sousfamille_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -65,16 +63,16 @@ class ComposanteController extends Controller
     }
 
     /**
-    * Creates a form to create a Composante entity.
+    * Creates a form to create a SousFamille entity.
     *
-    * @param Composante $entity The entity
+    * @param SousFamille $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Composante $entity)
+    private function createCreateForm(SousFamille $entity)
     {
-        $form = $this->createForm(new ComposanteType(), $entity, array(
-            'action' => $this->generateUrl('composante_create'),
+        $form = $this->createForm(new SousFamilleType(), $entity, array(
+            'action' => $this->generateUrl('sousfamille_create'),
             'method' => 'POST',
         ));
 
@@ -84,15 +82,15 @@ class ComposanteController extends Controller
     }
 
     /**
-     * Displays a form to create a new Composante entity.
+     * Displays a form to create a new SousFamille entity.
      *
-     * @Route("/new", name="composante_new")
+     * @Route("/new", name="sousfamille_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Composante();
+        $entity = new SousFamille();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -102,9 +100,9 @@ class ComposanteController extends Controller
     }
 
     /**
-     * Finds and displays a Composante entity.
+     * Finds and displays a SousFamille entity.
      *
-     * @Route("/{id}", name="composante_show")
+     * @Route("/{id}", name="sousfamille_show")
      * @Method("GET")
      * @Template()
      */
@@ -112,10 +110,10 @@ class ComposanteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('LvSaladeBundle:Composante')->find($id);
+        $entity = $em->getRepository('LvSaladeBundle:SousFamille')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Composante entity.');
+            throw $this->createNotFoundException('Unable to find SousFamille entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -127,9 +125,9 @@ class ComposanteController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Composante entity.
+     * Displays a form to edit an existing SousFamille entity.
      *
-     * @Route("/{id}/edit", name="composante_edit")
+     * @Route("/{id}/edit", name="sousfamille_edit")
      * @Method("GET")
      * @Template()
      */
@@ -137,10 +135,10 @@ class ComposanteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('LvSaladeBundle:Composante')->find($id);
+        $entity = $em->getRepository('LvSaladeBundle:SousFamille')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Composante entity.');
+            throw $this->createNotFoundException('Unable to find SousFamille entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -154,16 +152,16 @@ class ComposanteController extends Controller
     }
 
     /**
-    * Creates a form to edit a Composante entity.
+    * Creates a form to edit a SousFamille entity.
     *
-    * @param Composante $entity The entity
+    * @param SousFamille $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Composante $entity)
+    private function createEditForm(SousFamille $entity)
     {
-        $form = $this->createForm(new ComposanteType(), $entity, array(
-            'action' => $this->generateUrl('composante_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new SousFamilleType(), $entity, array(
+            'action' => $this->generateUrl('sousfamille_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
@@ -172,20 +170,20 @@ class ComposanteController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Composante entity.
+     * Edits an existing SousFamille entity.
      *
-     * @Route("/{id}", name="composante_update")
+     * @Route("/{id}", name="sousfamille_update")
      * @Method("POST")
-     * @Template("LvSaladeBundle:Composante:edit.html.twig")
+     * @Template("LvSaladeBundle:SousFamille:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('LvSaladeBundle:Composante')->find($id);
+        $entity = $em->getRepository('LvSaladeBundle:SousFamille')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Composante entity.');
+            throw $this->createNotFoundException('Unable to find SousFamille entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -195,7 +193,7 @@ class ComposanteController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('composante_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('sousfamille_edit', array('id' => $id)));
         }
 
         return array(
@@ -205,9 +203,9 @@ class ComposanteController extends Controller
         );
     }
     /**
-     * Deletes a Composante entity.
+     * Deletes a SousFamille entity.
      *
-     * @Route("/{id}", name="composante_delete")
+     * @Route("/{id}", name="sousfamille_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -217,21 +215,21 @@ class ComposanteController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('LvSaladeBundle:Composante')->find($id);
+            $entity = $em->getRepository('LvSaladeBundle:SousFamille')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Composante entity.');
+                throw $this->createNotFoundException('Unable to find SousFamille entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('composante'));
+        return $this->redirect($this->generateUrl('sousfamille'));
     }
 
     /**
-     * Creates a form to delete a Composante entity by id.
+     * Creates a form to delete a SousFamille entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -240,30 +238,10 @@ class ComposanteController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('composante_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('sousfamille_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }
-
-    /**
-     *
-     * @Route("/{editId}/upload", name="composante_upload")
-     * @Template()
-     */
-    public function uploadAction($editId)
-    {       
-       
-        $editIdP = $this->getRequest()->get('editId');
-        if (!preg_match('/^\d+$/', $editIdP))
-        {
-            throw $this->createNotFoundException('Unable created folder.');
-        }
-
-        $this->get('punk_ave.file_uploader')->handleFileUpload(array('folder' => 'tmp/attachments/' . $editIdP));
-        
-    }
-
-
 }

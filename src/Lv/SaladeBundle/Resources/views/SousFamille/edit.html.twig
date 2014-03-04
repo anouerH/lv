@@ -1,18 +1,17 @@
 {% extends "::layout.html.twig" %}
 
 {% block title %}
-  Edit Famille - {{ parent() }}
+  Edit sous Famille - {{ parent() }}
 {% endblock %}
 
 
 {% block body -%}
-    <h1>Famille edit</h1>
+    <h1>SousFamille edit</h1>
 
     {#{ form(edit_form) }#}
 
     <form action="{{ path('sousfamille_update', { id: entity.id }) }}" method="post" {{ form_enctype(edit_form) }} class="form-horizontal">
-
-        <div class="form-group">
+    	<div class="form-group">
             {{ form_label(edit_form.nom, 'Nom', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
             <div class="col-sm-6">
                 
@@ -23,25 +22,26 @@
 
         
 
-        <div class="form-group ">
+
+        <div class="form-group">
             {{ form_label(edit_form.description, 'Description', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
             <div class="col-sm-6">
             {{ form_widget(edit_form.description, {'attr': {'class': 'form-control','placeholder': 'Description','rows':'5'}}) }}
             {{ form_errors(edit_form.description) }}
             </div>
         </div>
-        {{ form_rest(edit_form) }}
 
-        <div>
+         <div>
             <button type="submit" class="btn btn-primary">Envoyer</button>
         </div>
 
-    </form>
-    
+        {{ form_rest(edit_form) }}
+
+    </from>
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('famille') }}">
+        <a href="{{ path('sousfamille') }}">
             Back to the list
         </a>
     </li>

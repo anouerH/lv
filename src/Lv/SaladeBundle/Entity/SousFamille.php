@@ -5,12 +5,12 @@ namespace Lv\SaladeBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Famille
+ * SousFamille
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Lv\SaladeBundle\Entity\FamilleRepository")
+ * @ORM\Entity(repositoryClass="Lv\SaladeBundle\Entity\SousFamilleRepository")
  */
-class Famille
+class SousFamille
 {
     /**
      * @var integer
@@ -45,17 +45,20 @@ class Famille
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)   
      */
     private $updatedAt;
 
-
+        /**
+    * @ORM\ManyToOne(targetEntity="Lv\SaladeBundle\Entity\Famille")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $famille;
 
 
     public function __construct()
     {
         $this->createdAt = new \Datetime();
-        $this->image  = intval(sprintf('%09d', mt_rand(0, 1999999999)));
     }
 
     /**
@@ -72,7 +75,7 @@ class Famille
      * Set nom
      *
      * @param string $nom
-     * @return Famille
+     * @return SousFamille
      */
     public function setNom($nom)
     {
@@ -95,7 +98,7 @@ class Famille
      * Set description
      *
      * @param string $description
-     * @return Famille
+     * @return SousFamille
      */
     public function setDescription($description)
     {
@@ -118,7 +121,7 @@ class Famille
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     * @return Famille
+     * @return SousFamille
      */
     public function setCreatedAt($createdAt)
     {
@@ -141,7 +144,7 @@ class Famille
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
-     * @return Famille
+     * @return SousFamille
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -160,10 +163,32 @@ class Famille
         return $this->updatedAt;
     }
 
-    public function __toString()
+     public function __toString()
     {
         return $this->getNom();
     }
 
 
+    /**
+     * Set famille
+     *
+     * @param \Lv\SaladeBundle\Entity\Famille $famille
+     * @return SousFamille
+     */
+    public function setFamille(\Lv\SaladeBundle\Entity\Famille $famille)
+    {
+        $this->famille = $famille;
+
+        return $this;
+    }
+
+    /**
+     * Get famille
+     *
+     * @return \Lv\SaladeBundle\Entity\Famille 
+     */
+    public function getFamille()
+    {
+        return $this->famille;
+    }
 }

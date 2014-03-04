@@ -104,6 +104,12 @@ class Composante
     */
     private $famille;
 
+    /**
+    * @ORM\ManyToOne(targetEntity="Lv\SaladeBundle\Entity\SousFamille")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $sousfamille;
+
 
 
     public function __construct()
@@ -396,5 +402,28 @@ class Composante
     public function getFamille()
     {
         return $this->famille;
+    }
+
+    /**
+     * Set sousfamille
+     *
+     * @param \Lv\SaladeBundle\Entity\SousFamille $sousfamille
+     * @return Composante
+     */
+    public function setSousfamille(\Lv\SaladeBundle\Entity\SousFamille $sousfamille)
+    {
+        $this->sousfamille = $sousfamille;
+
+        return $this;
+    }
+
+    /**
+     * Get sousfamille
+     *
+     * @return \Lv\SaladeBundle\Entity\SousFamille 
+     */
+    public function getSousfamille()
+    {
+        return $this->sousfamille;
     }
 }

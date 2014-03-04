@@ -162,10 +162,10 @@ class FamilleController extends Controller
     {
         $form = $this->createForm(new FamilleType(), $entity, array(
             'action' => $this->generateUrl('famille_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        //$form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
@@ -173,7 +173,7 @@ class FamilleController extends Controller
      * Edits an existing Famille entity.
      *
      * @Route("/{id}", name="famille_update")
-     * @Method("PUT")
+     * @Method("POST")
      * @Template("LvSaladeBundle:Famille:edit.html.twig")
      */
     public function updateAction(Request $request, $id)

@@ -49,6 +49,9 @@ class Famille
      */
     private $updatedAt;
 
+
+
+
     public function __construct()
     {
         $this->createdAt = new \Datetime();
@@ -155,5 +158,34 @@ class Famille
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
+
+    /**
+     * Set sousfamille
+     *
+     * @param \Lv\SaladeBundle\Entity\SousFamille $sousfamille
+     * @return Famille
+     */
+    public function setSousfamille(\Lv\SaladeBundle\Entity\SousFamille $sousfamille)
+    {
+        $this->sousfamille = $sousfamille;
+
+        return $this;
+    }
+
+    /**
+     * Get sousfamille
+     *
+     * @return \Lv\SaladeBundle\Entity\SousFamille 
+     */
+    public function getSousfamille()
+    {
+        return $this->sousfamille;
     }
 }

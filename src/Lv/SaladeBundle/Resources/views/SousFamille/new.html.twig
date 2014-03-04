@@ -1,13 +1,13 @@
 {% extends "::layout.html.twig" %}
 
 {% block body -%}
-    <h1>Famille creation</h1>
+    <h1>SousFamille creation</h1>
 
     {#{ form(form) }#}
+     <form action="{{ path('sousfamille_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
 
-    <form action="{{ path('famille_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
 
-    	<div class="form-group">
+     	<div class="form-group">
 			{{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
             <div class="col-sm-6">
                 
@@ -16,9 +16,18 @@
             </div>
         </div>
 
-         
         
-        
+         <div class="form-group">
+
+            {{ form_label(form.famille, 'Famille', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-6">
+                
+                {{ form_widget(form.famille, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.famille) }}
+
+            </div>
+        </div>
+
 
 
         <div class="form-group ">
@@ -34,16 +43,13 @@
         	<button type="submit" class="btn btn-primary">Envoyer</button>
         </div>
 
+     </form>
 
-    </form>
-
-
-
-        <ul class="record_actions list-inline">
-            <li>
-                <a class="glyphicon glyphicon-list-alt" href="{{ path('famille') }}">
-                    Back to the list
-                </a>
-            </li>
-        </ul>
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('sousfamille') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
 {% endblock %}

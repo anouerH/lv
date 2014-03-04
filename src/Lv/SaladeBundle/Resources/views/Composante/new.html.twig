@@ -6,10 +6,10 @@
     <h1 class="page-header">Composante creation</h1>
     {#{ form(form) }#}
 
-    <form action="{{ path('composante_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    <form action="{{ path('composante_create', { editId: entity.image }) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
     	{#{ form_widget(form) }#}
     	
-
+       
     	<div class="form-group">
 			{{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
             <div class="col-sm-6">
@@ -27,6 +27,17 @@
                 
                 {{ form_widget(form.famille, {'attr': {'class': 'form-control'}}) }}
                 {{ form_errors(form.famille) }}
+
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            {{ form_label(form.sousfamille, 'Sous famille', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-6">
+                
+                {{ form_widget(form.sousfamille, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.sousfamille) }}
 
             </div>
         </div>
@@ -130,7 +141,7 @@
 
     $(function() {
         new PunkAveFileUploader({
-            'uploadUrl': {{ path('composante_upload', { id: entity.image }) | json_encode | raw }},
+            'uploadUrl': {{ path('composante_upload', { editId: entity.image }) | json_encode | raw }},
             'viewUrl': {{ ('/uploads/tmp/attachments/' ~ entity.image)  | json_encode | raw }},
             'el': '.file-uploader',
             'existingFiles': {{ punkave_get_files('tmp/attachments/' ~ entity.image) | json_encode | raw }},

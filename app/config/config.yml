@@ -28,6 +28,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - ShtumiUsefulBundle::fields.html.twig
 
 # Assetic Configuration
 assetic:
@@ -72,3 +75,14 @@ fos_user:
     db_driver:     orm                        # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                       # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    Lv\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+
+shtumi_useful :
+    dependent_filtered_entities:
+        sousfamille_by_famille:
+            class: LvSaladeBundle:SousFamille
+            parent_property: famille
+            property: nom
+            role: IS_AUTHENTICATED_ANONYMOUSLY
+            no_result_msg: '--'
+            order_property: nom
+            order_direction: ASC

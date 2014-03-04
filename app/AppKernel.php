@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Lv\UserBundle\LvUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
+            new Shtumi\UsefulBundle\ShtumiUsefulBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
