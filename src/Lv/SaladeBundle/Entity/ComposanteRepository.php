@@ -12,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class ComposanteRepository extends EntityRepository
 {
+	/**
+	* get composnates
+	*/
+	public function getActiveComposantes($famille_id = null)
+    {
+        $qb = $this->createQueryBuilder('c')
+            //->where('j.expires_at > :date')
+            //->setParameter('date', date('Y-m-d H:i:s', time()))
+            ->orderBy('c.createdAt', 'DESC');
+
+        if($famille_id)
+        {
+            $qb->andWhere('c.famille = :famille_id')
+               ->setParameter('famille_id', $famille_id);
+        }
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
 }

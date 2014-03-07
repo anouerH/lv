@@ -19,7 +19,17 @@
          
         
         
+        <div class="form-group">
 
+            {{ form_label(form.famille, 'Famille', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+            <div class="col-sm-6">
+                
+                {{ form_widget(form.famille, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.famille) }}
+
+            </div>
+        </div>
+        
 
         <div class="form-group ">
             {{ form_label(form.description, 'Description', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}

@@ -31,18 +31,22 @@
             </div>
         </div>
 
-        <div class="form-group">
 
-            {{ form_label(form.sousfamille, 'Sous famille', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
+        <div class="form-group sousfamily-group" style="display:none">
+
+            
+            <label for="sousfamille" class="col-sm-2 control-label">Sous Famille</label>
             <div class="col-sm-6">
                 
-                {{ form_widget(form.sousfamille, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(form.sousfamille) }}
+                <select class="form-control" id="lv_saladebundle_composante_sousfamille" name="lv_saladebundle_composante_sousfamille">
+                  
+                </select>
+
 
             </div>
         </div>
-        
-        
+
+               
 
         <div class="form-group">
 			{{ form_label(form.prixUnitaire, 'Prix unitaire', {'label_attr': {'class': 'col-sm-2  control-label'}}) }}
@@ -136,7 +140,7 @@
 	</ul>
 
 <script type="text/javascript">
-
+    
     // Enable the file uploader
 
     $(function() {
@@ -148,6 +152,42 @@
             'delaySubmitWhileUploading': '.edit-form'
         });
     });
+    
+    $("#lv_saladebundle_composante_famille").change(function(){ 
+       
+        var id = $(this).val();
+        var DATA = 'id=' + id;
+        
+        var urlTwig = "{{ url('findSubFamily', {'id': 'threadIdVal'}) }}";
+        urlTwig = urlTwig.replace("threadIdVal", id);
+        $("#lv_saladebundle_composante_sousfamille").html('<option value="">Sélectionner une valeur</option>');
+        $(".sousfamily-group").hide();
+        $.ajax({
+            type: "GET",
+            url: urlTwig,
+            data: DATA,
+            cache: false,
+            success: function(data){
+               var collaboration = "";
+               var existItem = false;
+                $.each(data, function(i,item){
+                    collaboration += "<option value="+i+">"+item.name+"</option>";
+                    existItem = true;
+                });
+                if(existItem){
+                    $("#lv_saladebundle_composante_sousfamille").append(collaboration);
+                    $(".sousfamily-group").show();
+                }
+                
+            }
+        });   
+        return false;
+    });
+    
+
+
+
+
 </script>
 
 {% endblock %}

@@ -1,7 +1,6 @@
 <?php
 
 namespace Lv\SaladeBundle\Entity;
-
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,4 +11,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class FamilleRepository extends EntityRepository
 {
+
+	/**
+	*get With composante
+	**/
+	public function getWithComposantes()
+    {
+        
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT f FROM LvSaladeBundle:Famille f JOIN f.composantes c ');
+
+        return $query->getResult();
+    }   
 }

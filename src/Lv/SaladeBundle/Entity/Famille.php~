@@ -49,6 +49,20 @@ class Famille
      */
     private $updatedAt;
 
+    /**
+    * @ORM\ManyToOne(targetEntity="Lv\SaladeBundle\Entity\Famille")
+    * @ORM\JoinColumn(nullable=true)
+    */
+    private $famille;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Composante", mappedBy="famille")
+     */
+    protected $composantes;
+
+
+
 
 
 
@@ -166,26 +180,27 @@ class Famille
     }
 
 
+
     /**
-     * Set sousfamille
+     * Set famille
      *
-     * @param \Lv\SaladeBundle\Entity\SousFamille $sousfamille
+     * @param \Lv\SaladeBundle\Entity\Famille $famille
      * @return Famille
      */
-    public function setSousfamille(\Lv\SaladeBundle\Entity\SousFamille $sousfamille)
+    public function setFamille(\Lv\SaladeBundle\Entity\Famille $famille = null)
     {
-        $this->sousfamille = $sousfamille;
+        $this->famille = $famille;
 
         return $this;
     }
 
     /**
-     * Get sousfamille
+     * Get famille
      *
-     * @return \Lv\SaladeBundle\Entity\SousFamille 
+     * @return \Lv\SaladeBundle\Entity\Famille 
      */
-    public function getSousfamille()
+    public function getFamille()
     {
-        return $this->sousfamille;
+        return $this->famille;
     }
 }

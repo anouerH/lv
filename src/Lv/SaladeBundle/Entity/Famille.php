@@ -49,13 +49,28 @@ class Famille
      */
     private $updatedAt;
 
+    /**
+    * @ORM\ManyToOne(targetEntity="Lv\SaladeBundle\Entity\Famille")
+    * @ORM\JoinColumn(nullable=true)
+    */
+    private $famille;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="Composante", mappedBy="famille")
+     */
+    protected $composantes;
+
+    private $active_composantes;
+
+    private $imageFullPath;
 
 
     public function __construct()
     {
         $this->createdAt = new \Datetime();
         $this->image  = intval(sprintf('%09d', mt_rand(0, 1999999999)));
+        $imageFullPath = '';
     }
 
     /**
@@ -165,5 +180,72 @@ class Famille
         return $this->getNom();
     }
 
+
+
+    /**
+     * Set famille
+     *
+     * @param \Lv\SaladeBundle\Entity\Famille $famille
+     * @return Famille
+     */
+    public function setFamille(\Lv\SaladeBundle\Entity\Famille $famille = null)
+    {
+        $this->famille = $famille;
+
+        return $this;
+    }
+
+    /**
+     * Get famille
+     *
+     * @return \Lv\SaladeBundle\Entity\Famille 
+     */
+    public function getFamille()
+    {
+        return $this->famille;
+    }
+
+    /**
+     * Add composantes
+     *
+     * @param \Lv\SaladeBundle\Entity\Composante $composantes
+     * @return Famille
+     */
+    public function addComposante(\Lv\SaladeBundle\Entity\Composante $composantes)
+    {
+        $this->composantes[] = $composantes;
+
+        return $this;
+    }
+
+    /**
+     * Remove composantes
+     *
+     * @param \Lv\SaladeBundle\Entity\Composante $composantes
+     */
+    public function removeComposante(\Lv\SaladeBundle\Entity\Composante $composantes)
+    {
+        $this->composantes->removeElement($composantes);
+    }
+
+    /**
+     * Get composantes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComposantes()
+    {
+        return $this->composantes;
+    }
+
+    public function setActiveComposantes($composantes)
+    {
+        $this->active_composantes = $composantes;
+    }
+
+    public function getActiveComposantes()
+    {
+        return $this->active_composantes;
+    }
 
 }

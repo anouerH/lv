@@ -3,13 +3,66 @@
 {% block body -%}
     <h1>Composante list</h1>
 
-    <table class="records_list table table-striped">
+
+ 
+    <div id="jobs">
+        {% for famille in familles %}
+            <div>
+                <div class="category">
+                    <h4>{{ famille.nom }}</h4>
+                </div>
+                <table class="records_list table table-striped">
+                    <th>Nom</th>
+                    <th>Nom public</th>
+                    <th>Prix</th>
+                    <th>Prixunitaire</th>
+                    <th>Calories</th>
+                    <th>Grammage</th>
+                    <th>Etat</th>
+                    <th>Ordre</th>
+                    <th>Date de création</th>
+                   
+                    <th>Actions</th>
+                    </tbody>
+                    {% for entity in famille.activecomposantes %}
+                        <tr class="{{ cycle(['even', 'odd'], loop.index) }}">
+                            <td class="location">{{ entity.nom }}</td>
+                            <td>{{ entity.nomPublic }}</td>
+                            <td>{{ entity.prix }}</td>
+                            <td>{{ entity.prixUnitaire }}</td>
+                            <td>{{ entity.calories }}</td>
+                            <td>{{ entity.grammage }}</td>
+                            <td>{{ entity.etat }}</td>
+                            <td>{{ entity.ordre }}</td>
+                            <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                           
+                            <td>
+                                <ul class="list-inline">
+                                    <li>
+                                        <a class="glyphicon glyphicon-eye-open" href="{{ path('composante_show', { 'id': entity.id }) }}"></a>
+                                    </li>
+                                    <li>
+                                        <a class="glyphicon glyphicon-edit" href="{{ path('composante_edit', { 'id': entity.id }) }}"></a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+
+
+
+
+    <!--<table class="records_list table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Famille</th>
-                <th>Sous Famille</th>
+                
                 <th>Prixunitaire</th>
                 <th>Prix</th>
                 <th>Image</th>
@@ -24,36 +77,35 @@
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
+        {#% for entity in entities %#}
             <tr>
-                <td><a href="{{ path('composante_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.nom }}</td>
-                <td>{{ entity.famille }}</td>
-                <td>{{ entity.sousfamille }}</td>
-                <td>{{ entity.prixUnitaire }}</td>
-                <td>{{ entity.prix }}</td>
-                <td>{{ entity.image }}</td>
-                <td>{{ entity.nomPublic }}</td>
-                <td>{{ entity.calories }}</td>
-                <td>{{ entity.grammage }}</td>
-                <td>{{ entity.etat }}</td>
-                <td>{{ entity.ordre }}</td>
-                <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td><a href="{#{ path('composante_show', { 'id': entity.id }) }#}">{#{ entity.id }#}</a></td>
+                <td>{#{ entity.nom }#}</td>
+                <td>{#{ entity.famille }#}</td>
+                <td>{#{ entity.prixUnitaire }#}</td>
+                <td>{#{ entity.prix }#}</td>
+                <td>{#{ entity.image }#}</td>
+                <td>{#{ entity.nomPublic }#}</td>
+                <td>{#{ entity.calories }#}</td>
+                <td>{#{ entity.grammage }#}</td>
+                <td>{#{ entity.etat }#}</td>
+                <td>{#{ entity.ordre }#}</td>
+                <td>{#% if entity.createdAt %#}{#{ entity.createdAt|date('Y-m-d H:i:s') }#}{#% endif %#}</td>
+                <td>{#% if entity.updatedAt %#}{#{ entity.updatedAt|date('Y-m-d H:i:s') }#}{#% endif %#}</td>
                 <td>
                 <ul class="list-inline">
                     <li>
-                        <a class="glyphicon glyphicon-eye-open" href="{{ path('composante_show', { 'id': entity.id }) }}"></a>
+                        <a class="glyphicon glyphicon-eye-open" href="{#{ path('composante_show', { 'id': entity.id }) }#}"></a>
                     </li>
                     <li>
-                        <a class="glyphicon glyphicon-edit" href="{{ path('composante_edit', { 'id': entity.id }) }}"></a>
+                        <a class="glyphicon glyphicon-edit" href="{#{ path('composante_edit', { 'id': entity.id }) }#}"></a>
                     </li>
                 </ul>
                 </td>
             </tr>
-        {% endfor %}
+        {#% endfor %#}
         </tbody>
-    </table>
+    </table>-->
 
         <ul class="list-inline">
         <li>

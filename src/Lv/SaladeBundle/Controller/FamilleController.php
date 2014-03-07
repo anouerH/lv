@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Lv\SaladeBundle\Entity\Famille;
 use Lv\SaladeBundle\Form\FamilleType;
-
+use Symfony\Component\HttpFoundation\Response;
 /**
  * Famille controller.
  *
@@ -243,5 +243,40 @@ class FamilleController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    /**
+     * Deletes a Famille entity.
+     *
+     * @Route("/{id}/get-sub-family", name="findSubFamily")
+     * @Method("GET")
+     * @Template()
+     */
+
+    public function getSubFamilyAction($id){
+        
+        $request = $this->getRequest();
+        $id = $request->get('id');
+        $return = array();  
+        if($id!=""){//if the user has written his name
+            $famille = $this->getDoctrine()
+                    ->getRepository('LvSaladeBundle:Famille')
+                    ->findBy(array('famille'=>$id));
+
+            foreach ($famille as $key => $value) {
+               // var_dump($key,$value->getId(), $value->getFamille()->getId());
+                $return[$value->getId()] = array('name' => $value->getNom(),'parent'=> $value->getFamille()->getId()); 
+
+            }
+
+          
+        }else{
+            $return=array("responseCode"=>400);
+        }
+
+        $return=json_encode($return);//jscon encode the array
+        return new Response($return,200,array('Content-Type'=>'application/json'));
+
+
     }
 }

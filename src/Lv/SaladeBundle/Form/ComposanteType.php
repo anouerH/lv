@@ -5,7 +5,7 @@ namespace Lv\SaladeBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
+use Doctrine\ORM\EntityRepository;
 class ComposanteType extends AbstractType
 {
         /**
@@ -16,20 +16,30 @@ class ComposanteType extends AbstractType
     {
         $builder
             ->add('nom')
-            // ->add('famille', 'entity', array('class' => 'LvSaladeBundle:Famille','empty_value' => 'Sélectionner une valeur'))
+            //->add('famille', 'entity', array('class' => 'LvSaladeBundle:Famille','empty_value' => 'Sélectionner une valeur'))
+            ->add('famille', 'entity', array(
+                    'class' => 'LvSaladeBundle:Famille',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('f')
+                            ->where('f.famille is null')
+                            ->orderBy('f.nom', 'ASC');
+                    },
+                    'empty_value' => 'Sélectionner une valeur'
+                ))
             // ->add('sousfamille', 'entity', array('class' => 'LvSaladeBundle:SousFamille','empty_value' => 'Sélectionner une valeur'))
 
 
            
-            ->add('famille', 'entity', array('class'      => 'LvSaladeBundle:Famille'
+            /*->add('famille', 'entity', array('class'      => 'LvSaladeBundle:Famille'
                                            , 'required'   => true
                                            , 'empty_value'=> '== Choose Famille =='))
+
             ->add('sousfamille', 'shtumi_dependent_filtered_entity'
                         , array('entity_alias' => 'sousfamille_by_famille'
                               , 'empty_value'=> '== Choose sous Famille =='
                               , 'parent_field'=>'famille'))
 
-
+            */
 
             ->add('prixUnitaire')
             ->add('prix')

@@ -29,11 +29,20 @@ class ComposanteController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $familles = $em->getRepository('LvSaladeBundle:Famille')->getWithComposantes();
+        
 
-        $entities = $em->getRepository('LvSaladeBundle:Composante')->findAll();
+        foreach($familles as $famille) {
+            $famille->setActiveComposantes($em->getRepository('LvSaladeBundle:Composante')
+                ->getActiveComposantes($famille->getId()));
+        }
+
+
+        //$entities = $em->getRepository('LvSaladeBundle:Composante')->findAll();
 
         return array(
-            'entities' => $entities,
+            //'entities' => $entities,
+            'familles'=> $familles,
         );
     }
     /**
@@ -51,7 +60,14 @@ class ComposanteController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $sub_familly = $request->request->get('lv_saladebundle_composante_sousfamille');
             $em = $this->getDoctrine()->getManager();
+            
+            if(isset($sub_familly) && $sub_familly > 0 ){
+                $entity_sub =  $em->getRepository('LvSaladeBundle:Famille')->find($sub_familly);
+                $entity->setFamille($entity_sub);
+            }
+            
             $em->persist($entity);
             $em->flush();
 
