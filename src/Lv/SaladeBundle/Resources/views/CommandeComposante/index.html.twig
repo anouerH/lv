@@ -1,0 +1,182 @@
+{% extends "::layout.html.twig" %}
+
+{% block body -%}
+
+<link href="{{ asset('bundles/lvsalade/css/style.css') }}" rel="stylesheet" />
+
+
+<script>
+$(function(){ 
+    $('#list').click(function(){    
+        $('.prod-box').animate({opacity:0},function(){
+            $('.grid').removeClass('grid-active');
+            $('.list').addClass('list-active');
+            $('.prod-box').attr('class', 'prod-box-list shadow');
+            $('.prod-box-list').stop().animate({opacity:1});
+        });
+    });
+
+    $('#grid').click(function(){  
+        $('.prod-box-list').animate({opacity:0},function(){
+            $('.list').removeClass('list-active');
+            $('.grid').addClass('grid-active');
+            $('.prod-box-list').attr('class', 'prod-box shadow');
+            $('.prod-box').stop().animate({opacity:1});
+        });
+    });
+});
+</script>
+    <h1>Commander</h1>
+    <!--<div id="list" class="list "></div>
+        <div id="grid" class="grid"></div>
+        <div class="clear"></div>-->
+{% for famille in familles %}
+   
+<h3> {{famille.nom}}</h3>
+<div class="prods-cnt">
+        
+        
+        {% for entity in famille.activecomposantes %}
+         {%set editId = entity.image %}
+        <div class="prod-box shadow">
+           
+            {%if(punkave_get_files('tmp/attachments/' ~ editId ) | length)%}
+                                <img src=
+                                '/uploads/tmp/attachments/{{editId}}/thumbnails/{{ punkave_get_files('tmp/attachments/' ~ editId ) | first }}'>
+                                 {%endif%}
+            <div class="buy-ico" rel="{{entity.id}}"></div>
+            <h3>
+                <a href="#">{{entity.nom}}</a>
+            </h3>
+            <div class="price-cnt">
+                <div class="price old">Dt {{entity.prix}}</div>
+                <div class="price">Dt {{entity.prixunitaire}}</div>
+            </div>
+            <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+            </p>
+
+        </div><!-- end product box prod-box -->
+        {% endfor %}
+        <!--<div class="prod-box shadow">
+            <img src="{{ asset('img/product2.jpg') }}">
+            <div class="buy-ico"></div>
+            <h3>
+                <a href="#">Feather Dress With Embellished Lace Top</a>
+            </h3>
+            <div class="price-cnt">
+                <div class="price old">$165.00</div>
+                <div class="price">$99.00</div>
+            </div>
+            <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+            </p>
+            
+            
+
+        </div>
+
+        <div class="prod-box shadow">
+            <img src="{{ asset('bundles/lvsalade/img/product1.jpg') }}">
+            <div class="buy-ico"></div>
+            <h3>
+                <a href="#">Feather Dress With Embellished Lace Top</a>
+            </h3>
+            <div class="price-cnt">
+                <div class="price old">$96.00</div>
+                <div class="price">$45.00</div>
+            </div>
+            <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+            </p>
+
+        </div>
+        <div class="prod-box shadow">
+            <img src="img/product2.jpg">
+            <div class="buy-ico"></div>
+            <h3>
+                <a href="#">Feather Dress With Embellished Lace Top</a>
+            </h3>
+            <div class="price-cnt">
+                <div class="price old">$95.00</div>
+                <div class="price">$55.00</div>
+            </div>
+            <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+            </p>
+
+        </div>
+
+        <div class="prod-box shadow">
+            <img src="img/product3.jpg">
+            <div class="buy-ico"></div>
+            <h3>
+                <a href="#">Feather Dress With Embellished Lace Top</a>
+            </h3>
+            <div class="price-cnt">
+                <div class="price old">$95.00</div>
+                <div class="price">$55.00</div>
+            </div>
+            <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+            </p>
+
+        </div> 
+
+
+        <div class="prod-box shadow">
+            <img src="img/product4  .jpg">
+            <div class="buy-ico"></div>
+            <h3>
+                <a href="#">Feather Dress With Embellished Lace Top</a>
+            </h3>
+            <div class="price-cnt">
+                <div class="price old">$95.00</div>
+                <div class="price">$55.00</div>
+            </div>
+            <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+            </p>
+
+        </div>  -->
+
+
+    </div> 
+    {% endfor %} 
+
+
+
+
+    <script type="text/javascript">
+        $(".buy-ico").click(function(){ 
+        alert('eee');
+        var id = $(this).attr('rel');
+        var DATA = 'id=' + id;
+        
+        var urlTwig = "{{ url('addToCart') }}";
+        //urlTwig = urlTwig.replace("threadIdVal", id);
+        
+        $.ajax({
+            type: "GET",
+            url: urlTwig,
+            data: DATA,
+            cache: false,
+            success: function(data){
+               var collaboration = "";
+               var existItem = false;
+                $.each(data, function(i,item){
+                    collaboration += "<option value="+i+">"+item.name+"</option>";
+                    existItem = true;
+                });
+                if(existItem){
+                    $("#lv_saladebundle_composante_sousfamille").append(collaboration);
+                    $(".sousfamily-group").show();
+                }
+                
+            }
+        });   
+        return false;
+    });
+    </script>
+
+    {% endblock %}

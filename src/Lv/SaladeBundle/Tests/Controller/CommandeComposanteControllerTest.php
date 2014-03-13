@@ -4,7 +4,7 @@ namespace Lv\SaladeBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class SousFamilleControllerTest extends WebTestCase
+class CommandeComposanteControllerTest extends WebTestCase
 {
     /*
     public function testCompleteScenario()
@@ -13,13 +13,13 @@ class SousFamilleControllerTest extends WebTestCase
         $client = static::createClient();
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/sousfamille/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /sousfamille/");
+        $crawler = $client->request('GET', '/commandecomposante/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /commandecomposante/");
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'lv_saladebundle_sousfamilletype[field_name]'  => 'Test',
+            'lv_saladebundle_commandecomposantetype[field_name]'  => 'Test',
             // ... other fields to fill
         ));
 
@@ -33,7 +33,7 @@ class SousFamilleControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Edit')->form(array(
-            'lv_saladebundle_sousfamilletype[field_name]'  => 'Foo',
+            'lv_saladebundle_commandecomposantetype[field_name]'  => 'Foo',
             // ... other fields to fill
         ));
 

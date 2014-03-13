@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>CommandeComposante</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Commande</th>
+                <td>{{ entity.commande }}</td>
+            </tr>
+            <tr>
+                <th>Composante</th>
+                <td>{{ entity.composante }}</td>
+            </tr>
+            <tr>
+                <th>Qunatite</th>
+                <td>{{ entity.qunatite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('commandecomposante') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('commandecomposante_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

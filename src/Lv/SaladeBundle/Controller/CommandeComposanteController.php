@@ -7,28 +7,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Lv\SaladeBundle\Entity\Composante;
-use Lv\SaladeBundle\Form\ComposanteType;
-use Symfony\Component\HttpFoundation\Response;
+use Lv\SaladeBundle\Entity\CommandeComposante;
+use Lv\SaladeBundle\Form\CommandeComposanteType;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
- * Composante controller.
+ * CommandeComposante controller.
  *
- * @Route("/composante")
+ * @Route("/commandecomposante")
  */
-class ComposanteController extends Controller
+class CommandeComposanteController extends Controller
 {
 
     /**
-     * Lists all Composante entities.
+     * Lists all CommandeComposante entities.
      *
-     * @Route("/", name="composante")
+     * @Route("/", name="commandecomposante")
      * @Method("GET")
      * @Template()
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+       $em = $this->getDoctrine()->getManager();
         $familles = $em->getRepository('LvSaladeBundle:Famille')->getWithComposantes();
         
 
@@ -44,34 +44,27 @@ class ComposanteController extends Controller
             //'entities' => $entities,
             'familles'=> $familles,
         );
+
     }
     /**
-     * Creates a new Composante entity.
+     * Creates a new CommandeComposante entity.
      *
-     * @Route("/", name="composante_create")
+     * @Route("/", name="commandecomposante_create")
      * @Method("POST")
-     * @Template("LvSaladeBundle:Composante:new.html.twig")
+     * @Template("LvSaladeBundle:CommandeComposante:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Composante();
-        $entity->setImage($request->query->get('editId'));
+        $entity = new CommandeComposante();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $sub_familly = $request->request->get('lv_saladebundle_composante_sousfamille');
             $em = $this->getDoctrine()->getManager();
-            
-            if(isset($sub_familly) && $sub_familly > 0 ){
-                $entity_sub =  $em->getRepository('LvSaladeBundle:Famille')->find($sub_familly);
-                $entity->setFamille($entity_sub);
-            }
-            
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('composante_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('commandecomposante_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -81,34 +74,34 @@ class ComposanteController extends Controller
     }
 
     /**
-    * Creates a form to create a Composante entity.
+    * Creates a form to create a CommandeComposante entity.
     *
-    * @param Composante $entity The entity
+    * @param CommandeComposante $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Composante $entity)
+    private function createCreateForm(CommandeComposante $entity)
     {
-        $form = $this->createForm(new ComposanteType(), $entity, array(
-            'action' => $this->generateUrl('composante_create'),
+        $form = $this->createForm(new CommandeComposanteType(), $entity, array(
+            'action' => $this->generateUrl('commandecomposante_create'),
             'method' => 'POST',
         ));
 
-        //$form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
 
     /**
-     * Displays a form to create a new Composante entity.
+     * Displays a form to create a new CommandeComposante entity.
      *
-     * @Route("/new", name="composante_new")
+     * @Route("/new", name="commandecomposante_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Composante();
+        $entity = new CommandeComposante();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -118,9 +111,9 @@ class ComposanteController extends Controller
     }
 
     /**
-     * Finds and displays a Composante entity.
+     * Finds and displays a CommandeComposante entity.
      *
-     * @Route("/{id}", name="composante_show")
+     * @Route("/{id}", name="commandecomposante_show", requirements={"id" = "\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -128,10 +121,10 @@ class ComposanteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('LvSaladeBundle:Composante')->find($id);
+        $entity = $em->getRepository('LvSaladeBundle:CommandeComposante')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Composante entity.');
+            throw $this->createNotFoundException('Unable to find CommandeComposante entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -143,9 +136,9 @@ class ComposanteController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Composante entity.
+     * Displays a form to edit an existing CommandeComposante entity.
      *
-     * @Route("/{id}/edit", name="composante_edit")
+     * @Route("/{id}/edit", name="commandecomposante_edit", requirements={"id" = "\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -153,10 +146,10 @@ class ComposanteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('LvSaladeBundle:Composante')->find($id);
+        $entity = $em->getRepository('LvSaladeBundle:CommandeComposante')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Composante entity.');
+            throw $this->createNotFoundException('Unable to find CommandeComposante entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -170,38 +163,38 @@ class ComposanteController extends Controller
     }
 
     /**
-    * Creates a form to edit a Composante entity.
+    * Creates a form to edit a CommandeComposante entity.
     *
-    * @param Composante $entity The entity
+    * @param CommandeComposante $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Composante $entity)
+    private function createEditForm(CommandeComposante $entity)
     {
-        $form = $this->createForm(new ComposanteType(), $entity, array(
-            'action' => $this->generateUrl('composante_update', array('id' => $entity->getId())),
-            'method' => 'POST',
+        $form = $this->createForm(new CommandeComposanteType(), $entity, array(
+            'action' => $this->generateUrl('commandecomposante_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
         ));
 
-        //$form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
     /**
-     * Edits an existing Composante entity.
+     * Edits an existing CommandeComposante entity.
      *
-     * @Route("/{id}", name="composante_update")
-     * @Method("POST")
-     * @Template("LvSaladeBundle:Composante:edit.html.twig")
+     * @Route("/{id}", name="commandecomposante_update")
+     * @Method("PUT")
+     * @Template("LvSaladeBundle:CommandeComposante:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('LvSaladeBundle:Composante')->find($id);
+        $entity = $em->getRepository('LvSaladeBundle:CommandeComposante')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Composante entity.');
+            throw $this->createNotFoundException('Unable to find CommandeComposante entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -209,18 +202,9 @@ class ComposanteController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-
-            $sub_familly = $request->request->get('lv_saladebundle_composante_sousfamille');
-            //$em = $this->getDoctrine()->getManager();
-            
-            if(isset($sub_familly) && $sub_familly > 0 ){
-                $entity_sub =  $em->getRepository('LvSaladeBundle:Famille')->find($sub_familly);
-                $entity->setFamille($entity_sub);
-            }
-
             $em->flush();
 
-            return $this->redirect($this->generateUrl('composante_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('commandecomposante_edit', array('id' => $id)));
         }
 
         return array(
@@ -230,9 +214,9 @@ class ComposanteController extends Controller
         );
     }
     /**
-     * Deletes a Composante entity.
+     * Deletes a CommandeComposante entity.
      *
-     * @Route("/{id}", name="composante_delete")
+     * @Route("/{id}", name="commandecomposante_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -242,21 +226,21 @@ class ComposanteController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('LvSaladeBundle:Composante')->find($id);
+            $entity = $em->getRepository('LvSaladeBundle:CommandeComposante')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Composante entity.');
+                throw $this->createNotFoundException('Unable to find CommandeComposante entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('composante'));
+        return $this->redirect($this->generateUrl('commandecomposante'));
     }
 
     /**
-     * Creates a form to delete a Composante entity by id.
+     * Creates a form to delete a CommandeComposante entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -265,30 +249,35 @@ class ComposanteController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('composante_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('commandecomposante_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }
-
     /**
+     * add composante to cart 
      *
-     * @Route("/{editId}/upload", name="composante_upload")
+     * @Route("/add-to-cart", name="addToCart")
+     * @Method("GET")
      * @Template()
      */
-    public function uploadAction($editId)
-    {       
-       
-        $editIdP = $this->getRequest()->get('editId');
-        if (!preg_match('/^\d+$/', $editIdP))
-        {
-            throw $this->createNotFoundException('Unable created folder.');
+    public function addToCartAction(){
+        $request = $this->getRequest();
+        $id = $request->get('id');
+        var_dump('yeye');
+        //$session = new Session();
+        //$session->start();
+        $session = $request->getSession();
+        if($session->has('tokens')){
+            $tokens = $session->get('tokens');
+            $tokens[$id] = 1;
+            $session->set('tokens', $tokens);
+        }else{
+            $tokens[$id] = 1;
+            $session->set('tokens', $tokens);
         }
-
-        $this->get('punk_ave.file_uploader')->handleFileUpload(array('folder' => 'tmp/attachments/' . $editIdP));
-        
+        var_dump($session->get('tokens'));
+        exit();
     }
-
-
 }

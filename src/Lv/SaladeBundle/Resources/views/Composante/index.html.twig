@@ -12,6 +12,7 @@
                     <h4>{{ famille.nom }}</h4>
                 </div>
                 <table class="records_list table table-striped">
+                    <th></th>
                     <th>Nom</th>
                     <th>Nom public</th>
                     <th>Prix</th>
@@ -25,7 +26,16 @@
                     <th>Actions</th>
                     </tbody>
                     {% for entity in famille.activecomposantes %}
+                        {%set editId = entity.image %}
+                        
                         <tr class="{{ cycle(['even', 'odd'], loop.index) }}">
+                            <td>
+                                {%if(punkave_get_files('tmp/attachments/' ~ editId ) | length)%}
+                                <img src=
+                                '/uploads/tmp/attachments/{{editId}}/thumbnails/{{ punkave_get_files('tmp/attachments/' ~ editId ) | first }}'>
+                                 {%endif%}
+                            
+                            </td>
                             <td class="location">{{ entity.nom }}</td>
                             <td>{{ entity.nomPublic }}</td>
                             <td>{{ entity.prix }}</td>

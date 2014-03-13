@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2e44c477e0bd7c713a9a638922aed43a",
+    "hash": "c570c5936e931ae3e35f4a35e4d852a6",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -43,7 +43,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -631,12 +631,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "6a79d379164ec7d63088c3c7ba18bcca5f993a97"
+                "reference": "7867dfc7aa67969a24fec7f8aa1051eda23098e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/6a79d379164ec7d63088c3c7ba18bcca5f993a97",
-                "reference": "6a79d379164ec7d63088c3c7ba18bcca5f993a97",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/7867dfc7aa67969a24fec7f8aa1051eda23098e9",
+                "reference": "7867dfc7aa67969a24fec7f8aa1051eda23098e9",
                 "shasum": ""
             },
             "require": {
@@ -691,7 +691,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2014-03-04 01:12:08"
+            "time": "2014-03-04 23:23:39"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1459,6 +1459,55 @@
             "time": "2014-02-19 14:49:26"
         },
         {
+            "name": "symfony/serializer",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Serializer",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Serializer.git",
+                "reference": "6c9f6812d2611f40bd4f27fc4e5917ab0780cae4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Serializer/zipball/6c9f6812d2611f40bd4f27fc4e5917ab0780cae4",
+                "reference": "6c9f6812d2611f40bd4f27fc4e5917ab0780cae4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Serializer\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Serializer Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-03-04 14:58:09"
+        },
+        {
             "name": "symfony/swiftmailer-bundle",
             "version": "v2.3.5",
             "target-dir": "Symfony/Bundle/SwiftmailerBundle",
@@ -1747,7 +1796,8 @@
     "stability-flags": {
         "friendsofsymfony/user-bundle": 20,
         "shtumi/useful-bundle": 20,
-        "punkave/symfony2-file-uploader-bundle": 20
+        "punkave/symfony2-file-uploader-bundle": 20,
+        "symfony/serializer": 20
     },
     "platform": {
         "php": ">=5.3.3"

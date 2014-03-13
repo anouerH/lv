@@ -21,7 +21,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "dev-master",
         "shtumi/useful-bundle": "dev-master",
-        "punkave/symfony2-file-uploader-bundle": "1.0.*@dev"
+        "punkave/symfony2-file-uploader-bundle": "1.0.*@dev",
+        "symfony/serializer": "2.5.*@dev"
     },
     "scripts": {
         "post-install-cmd": [
