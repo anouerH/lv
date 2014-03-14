@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Commande list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Serveur</th>
+                <th>Numtable</th>
+                <th>Etat</th>
+                <th>Vue</th>
+                <th>Message</th>
+                <th>Vuecaisse</th>
+                <th>Createdat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('commande_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.serveur }}</td>
+                <td>{{ entity.numTable }}</td>
+                <td>{{ entity.etat }}</td>
+                <td>{{ entity.vue }}</td>
+                <td>{{ entity.message }}</td>
+                <td>{{ entity.vuecaisse }}</td>
+                <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('commande_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('commande_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('commande_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

@@ -3,7 +3,6 @@
 namespace Lv\SaladeBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-
 /**
  * ComposanteRepository
  *
@@ -32,4 +31,20 @@ class ComposanteRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function getOverview($keys = array()){
+
+       $qb = $this->createQueryBuilder('c');
+       $qb->select('c')
+          ->where('c.id IN (?1)')
+          ->orderBy('c.ordre', 'ASC')
+          ->setParameter(1, $keys)
+       ;
+       
+       $query = $qb->getQuery();
+       return $query->getResult();
+
+    }
+
+
 }

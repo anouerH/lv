@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Lv\SaladeBundle\Entity\CommandeComposante;
 use Lv\SaladeBundle\Form\CommandeComposanteType;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * CommandeComposante controller.
@@ -265,9 +266,6 @@ class CommandeComposanteController extends Controller
     public function addToCartAction(){
         $request = $this->getRequest();
         $id = $request->get('id');
-        var_dump('yeye');
-        //$session = new Session();
-        //$session->start();
         $session = $request->getSession();
         if($session->has('tokens')){
             $tokens = $session->get('tokens');
@@ -277,7 +275,10 @@ class CommandeComposanteController extends Controller
             $tokens[$id] = 1;
             $session->set('tokens', $tokens);
         }
-        var_dump($session->get('tokens'));
-        exit();
+        $return['length'] = count($session->get('tokens'));
+        $return['data'] = $session->get('tokens');
+        $return=json_encode($return);//jscon encode the array
+        return new Response($return,200,array('Content-Type'=>'application/json'));
+
     }
 }

@@ -27,6 +27,20 @@ $(function(){
 });
 </script>
     <h1>Commander</h1>
+    <div class="pull-right">
+        <span id="total-card" class="glyphicon glyphicon-shopping-cart">
+            {%if(app.session.get('tokens') | length == 0)%}
+                <span style="display:none">
+                    <b>{{app.session.get('tokens') | length}}</b> élément(s)  sélectionné(s) <a  class="btn btn-success" href="{{path('overview')}}">Commander</a>
+                </span>
+            {%endif%}
+            {%if(app.session.get('tokens') | length)%}
+                <b>{{app.session.get('tokens') | length}}</b> élément(s)  sélectionné(s) <a  class="btn btn-success" href="{{path('overview')}}">Commander</a>
+            {%else%}
+                <span class='nothing'>Aucun élément  sélectionné</span>
+            {%endif%}
+        </span>
+    </div>
     <!--<div id="list" class="list "></div>
         <div id="grid" class="grid"></div>
         <div class="clear"></div>-->
@@ -149,7 +163,6 @@ $(function(){
 
     <script type="text/javascript">
         $(".buy-ico").click(function(){ 
-        alert('eee');
         var id = $(this).attr('rel');
         var DATA = 'id=' + id;
         
@@ -162,17 +175,10 @@ $(function(){
             data: DATA,
             cache: false,
             success: function(data){
-               var collaboration = "";
-               var existItem = false;
-                $.each(data, function(i,item){
-                    collaboration += "<option value="+i+">"+item.name+"</option>";
-                    existItem = true;
-                });
-                if(existItem){
-                    $("#lv_saladebundle_composante_sousfamille").append(collaboration);
-                    $(".sousfamily-group").show();
-                }
-                
+                $('#total-card span').show();
+                $('#total-card .nothing').hide();
+
+                $('#total-card b').html(data['length']); 
             }
         });   
         return false;

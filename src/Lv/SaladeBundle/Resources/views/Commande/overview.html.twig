@@ -1,0 +1,92 @@
+{% extends "::layout.html.twig" %}
+
+{% block body -%}
+
+<link href="{{ asset('bundles/lvsalade/css/style.css') }}" rel="stylesheet" />
+
+
+
+    <h1>la commande</h1>
+     {%set totalcmd = 0 %}
+    {% for entity in entities %}
+    	 {% set totalcmd = totalcmd + entity.prixunitaire %}
+    {% endfor %}
+	<div class="pull-right">
+        
+           <h4 class="glyphicon glyphicon-shopping-cart text-error"> Total : {{totalcmd}} Dt </h4>
+
+
+        
+    </div>
+
+
+{%if(entities | length)%}
+<div class="prods-cnt">
+        
+       
+        {% for entity in entities %}
+         {%set editId = entity.image %}
+        
+        <div class="prod-box shadow">
+           
+            {%if(punkave_get_files('tmp/attachments/' ~ editId ) | length)%}
+                                <img src=
+                                '/uploads/tmp/attachments/{{editId}}/thumbnails/{{ punkave_get_files('tmp/attachments/' ~ editId ) | first }}'>
+                                 {%endif%}
+            <div class="buy-ico" rel="{{entity.id}}"></div>
+            <div class="buy-ico" rel="{{entity.id}}"></div>
+            <h3>
+                <a href="#">{{entity.nom}}</a>
+            </h3>
+            <div class="price-cnt">
+                <div class="price old">Dt {{entity.prix}}</div>
+                <div class="price">Dt {{entity.prixunitaire}}</div>
+            </div>
+            <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+            </p>
+
+        </div><!-- end product box prod-box -->
+        {% endfor %}
+        
+
+
+    </div> 
+    {%else%}
+    	
+
+    	<div class="bg-warning alert alert-block">
+		  <button type="button" class="close" data-dismiss="alert">&times;</button>
+		  <h4>Warning!</h4>
+		  Aucun élément  sélectionné
+		</div>
+
+    {%endif%}
+
+
+
+    <script type="text/javascript">
+        $(".buy-ico").click(function(){ 
+        var id = $(this).attr('rel');
+        var DATA = 'id=' + id;
+        
+        var urlTwig = "{{ url('addToCart') }}";
+        //urlTwig = urlTwig.replace("threadIdVal", id);
+        
+        $.ajax({
+            type: "GET",
+            url: urlTwig,
+            data: DATA,
+            cache: false,
+            success: function(data){
+                $('#total-card span').show();
+                $('#total-card .nothing').hide();
+
+                $('#total-card b').html(data['length']); 
+            }
+        });   
+        return false;
+    });
+    </script>
+
+    {% endblock %}
