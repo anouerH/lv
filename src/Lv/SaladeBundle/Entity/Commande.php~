@@ -254,27 +254,4 @@ class Commande
     {
         return $this->createdAt;
     }
-
-    /**
-     * Set user
-     *
-     * @param \Lv\UserBundle\Entity\User $user
-     * @return Commande
-     */
-    public function setUser(\Lv\UserBundle\Entity\User $user)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Lv\UserBundle\Entity\User 
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
 }

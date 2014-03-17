@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Lv\SaladeBundle\Entity\Commande;
+use Lv\SaladeBundle\Entity\CommandeComposante;
 use Lv\SaladeBundle\Form\CommandeType;
 
 /**
@@ -270,6 +271,69 @@ class CommandeController extends Controller
         
         return array(
             'entities' => $entities,
+        );
+    }
+
+    /**
+     * confirm commande
+     *
+     * @Route("/confirm", name="commande_confirm")
+     * @Method("GET")
+     * @Template("LvSaladeBundle:Commande:confirm.html.twig")
+     */
+    public function confirmAction(){
+        
+
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $tokens  =array();
+        $entities=array();
+        if($session->has('tokens'))
+            $tokens = $session->get('tokens');
+        
+
+        if(count($tokens)){
+            // Insertion d'une nouvelle commande
+           $cmd = new Commande();
+                // get current user 
+                $user= $this->get('security.context')->getToken()->getUser();
+            $cmd->setUser($user);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($cmd);
+            $em->flush();
+
+
+            foreach ($tokens as $cpte => $data) {
+                
+                $cmdCpte = new CommandeComposante();
+
+                $cmdCpte->setCommande($cmd->getId());
+                $cmdCpte->setComposante($cpte);
+                $cmdCpte->setQunatite($data['qte']);
+                
+                $em->persist($cmdCpte);
+                $em->flush();
+
+                //remove session
+                $session->remove('tokens');
+
+                
+
+            }
+
+            // Flash Bag
+            $this->get('session')->getFlashBag()->add(
+                'notice',
+                'Votre commande à été bien enregistrée!'
+            );
+
+
+        }
+        
+
+
+        return array(
+            
         );
     }
 }

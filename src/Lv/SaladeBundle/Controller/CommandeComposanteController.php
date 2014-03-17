@@ -266,16 +266,55 @@ class CommandeComposanteController extends Controller
     public function addToCartAction(){
         $request = $this->getRequest();
         $id = $request->get('id');
+        $price = $request->get('price');
         $session = $request->getSession();
+        $sumPrice = 0.00;
         if($session->has('tokens')){
             $tokens = $session->get('tokens');
-            $tokens[$id] = 1;
+            $tokens[$id] = array('qte' => 1, 'price'=> $price);;
             $session->set('tokens', $tokens);
+            foreach ($tokens as $key => $value) {
+                $sumPrice += $value['price'];
+            }
         }else{
-            $tokens[$id] = 1;
+            $tokens[$id] = array('qte' => 1, 'price'=> $price);;
             $session->set('tokens', $tokens);
+            $sumPrice +=$price;
+        }
+
+
+
+        $return['length'] = count($session->get('tokens'));
+        $return['sumprice'] = $sumPrice;
+        $return['data'] = $session->get('tokens');
+
+        $return=json_encode($return);//jscon encode the array
+        return new Response($return,200,array('Content-Type'=>'application/json'));
+
+    }
+
+    /**
+     * remove composante from cart 
+     *
+     * @Route("/remove-from-cart", name="RemoveFromCart")
+     * @Method("GET")
+     * @Template()
+     */
+    public function RemoveFromCartAction(){
+        $request = $this->getRequest();
+        $id = $request->get('id');
+        $session = $request->getSession();
+        $sumPrice = 0.00;
+        if($session->has('tokens')){
+            $tokens = $session->get('tokens');
+            unset($tokens[$id]);
+            $session->set('tokens', $tokens);
+            foreach ($tokens as $key => $value) {
+                $sumPrice += $value['price'];
+            }
         }
         $return['length'] = count($session->get('tokens'));
+        $return['sumprice'] = $sumPrice;
         $return['data'] = $session->get('tokens');
         $return=json_encode($return);//jscon encode the array
         return new Response($return,200,array('Content-Type'=>'application/json'));

@@ -1,0 +1,28 @@
+{% extends "::layout.html.twig" %}
+
+{% block body -%}
+
+<link href="{{ asset('bundles/lvsalade/css/style.css') }}" rel="stylesheet" />
+
+
+
+    <h1>Confirmation de la commande</h1>
+     
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+    
+    <div class="alert alert-success">
+	  <button type="button" class="close" data-dismiss="alert">&times;</button>
+	  <h4>Well done!</h4>
+	  {{ flashMessage }}
+	</div>
+
+
+	{% endfor %}
+
+
+    
+    
+
+
+    {% endblock %}

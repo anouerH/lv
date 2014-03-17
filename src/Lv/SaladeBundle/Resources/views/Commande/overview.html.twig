@@ -11,14 +11,15 @@
     {% for entity in entities %}
     	 {% set totalcmd = totalcmd + entity.prixunitaire %}
     {% endfor %}
+    {%if(entities | length>0)%}
 	<div class="pull-right">
         
-           <h4 class="glyphicon glyphicon-shopping-cart text-error"> Total : {{totalcmd}} Dt </h4>
+           <h4 class="glyphicon glyphicon-shopping-cart text-error" id="sumprice"> Total : {{totalcmd}} Dt </h4>
 
 
         
     </div>
-
+    {%endif%}
 
 {%if(entities | length)%}
 <div class="prods-cnt">
@@ -33,8 +34,8 @@
                                 <img src=
                                 '/uploads/tmp/attachments/{{editId}}/thumbnails/{{ punkave_get_files('tmp/attachments/' ~ editId ) | first }}'>
                                  {%endif%}
-            <div class="buy-ico" rel="{{entity.id}}"></div>
-            <div class="buy-ico" rel="{{entity.id}}"></div>
+            <div class="delete-ico" rel="{{entity.id}}"></div>
+            
             <h3>
                 <a href="#">{{entity.nom}}</a>
             </h3>
@@ -52,6 +53,11 @@
 
 
     </div> 
+    <div class="clear"></div>
+    <div style="float:right; padding-top:30px">
+    <a  class="btn btn-success" href="{{path('commande_confirm')}}">Valide la commander</a>
+    </div>
+
     {%else%}
     	
 
@@ -66,26 +72,32 @@
 
 
     <script type="text/javascript">
-        $(".buy-ico").click(function(){ 
+        
+    $(".delete-ico").click(function(){ 
         var id = $(this).attr('rel');
         var DATA = 'id=' + id;
-        
-        var urlTwig = "{{ url('addToCart') }}";
-        //urlTwig = urlTwig.replace("threadIdVal", id);
-        
+        var urlTwig = "{{ url('RemoveFromCart') }}";
+        $(this).parent().remove();
         $.ajax({
             type: "GET",
             url: urlTwig,
             data: DATA,
             cache: false,
             success: function(data){
-                $('#total-card span').show();
-                $('#total-card .nothing').hide();
+                
+                
+                $('#sumprice').html(" Total : "+data['sumprice']+" Dt "); 
+                
+               
 
-                $('#total-card b').html(data['length']); 
+                
+                
             }
         });   
         return false;
+
+
+
     });
     </script>
 
