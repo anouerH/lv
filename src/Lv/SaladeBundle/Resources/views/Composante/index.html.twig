@@ -1,9 +1,15 @@
 {% extends "::layout.html.twig" %}
 
 {% block body -%}
-    <h1>Composante list</h1>
+    <h1>Liste des composantes</h1>
 
-
+<ul class="list-inline">
+        <li>
+            <a class ="glyphicon glyphicon-plus" href="{{ path('composante_new') }}">
+                Ajouter une composante
+            </a>
+        </li>
+    </ul>
  
     <div id="jobs">
         {% for famille in familles %}
@@ -117,11 +123,5 @@
         </tbody>
     </table>-->
 
-        <ul class="list-inline">
-        <li>
-            <a class ="glyphicon glyphicon-plus" href="{{ path('composante_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+        
     {% endblock %}

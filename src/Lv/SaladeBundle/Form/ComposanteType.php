@@ -49,7 +49,7 @@ class ComposanteType extends AbstractType
             ->add('grammage')
             //->add('etat')
             ->add('etat', 'choice', array(
-                'choices' => array('1' => '1', '2' => '2', '3' => '3'),
+                'choices' => array('1' => 'activé', '0' => 'désactivé'),
                 'multiple' => false,
                 'expanded' => true,
                 'required' => true,
