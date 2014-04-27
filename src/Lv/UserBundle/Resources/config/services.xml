@@ -7,14 +7,21 @@
     <!--
     <parameters>
         <parameter key="lv_user.example.class">Lv\UserBundle\Example</parameter>
-    </parameters>
+    </parameters>-->
 
     <services>
-        <service id="lv_user.example" class="%lv_user.example.class%">
+        <!--<service id="lv_user.example" class="%lv_user.example.class%">
             <argument type="service" id="service_id" />
             <argument>plain_value</argument>
             <argument>%parameter_name%</argument>
+        </service>-->
+    
+    <service id="lv_user.registration.form.type" class="Lv\UserBundle\Form\Type\RegistrationFormType">
+            <tag name="form.type" alias="lv_user_registration" />
+            <argument>%fos_user.model.user.class%</argument>
         </service>
+        
     </services>
-    -->
+    
+    
 </container>

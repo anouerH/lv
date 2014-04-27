@@ -1,0 +1,11 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <!--<p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>-->
+
+    <div class="alert alert-success" style = "margin:20px">
+    	L'utilisateur a été créé avec succès
+
+    </div>
+
+{% endblock fos_user_content %}
