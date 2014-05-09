@@ -29,14 +29,37 @@ class CommandeComposanteController extends Controller
      */
     public function indexAction()
     {
-       $em = $this->getDoctrine()->getManager();
-        $familles = $em->getRepository('LvSaladeBundle:Famille')->getWithComposantes();
-        
-
-        foreach($familles as $famille) {
-            $famille->setActiveComposantes($em->getRepository('LvSaladeBundle:Composante')
+		$em = $this->getDoctrine()->getManager();
+		$familles = $em->getRepository('LvSaladeBundle:Famille')->getWithComposantes();
+       
+		
+	
+       foreach($familles as $famille) {
+		   
+			// vérifiér si la faille courantes possede des sous famille 
+			$sousfamilles = $em->getRepository('LvSaladeBundle:Famille')->getSubFamilys($famille->getId());
+			
+			
+			if(count($sousfamilles)){
+				$sousFamilleData = array();
+				foreach($sousfamilles as $sousfamille) {
+					$sousfamille->setActiveComposantes($em->getRepository('LvSaladeBundle:Composante')
+					->getActiveComposantes($sousfamille->getId()));
+					
+					$sousFamilleData[] = $sousfamille ;
+					
+					
+				}
+				$famille->setSousFamilleData($sousFamilleData);
+				
+			}else{
+				$famille->setActiveComposantes($em->getRepository('LvSaladeBundle:Composante')
                 ->getActiveComposantes($famille->getId()));
-        }
+			}
+       
+       }
+       
+      
 
 
         //$entities = $em->getRepository('LvSaladeBundle:Composante')->findAll();

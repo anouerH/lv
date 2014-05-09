@@ -58,41 +58,92 @@ $(function(){
 <h3> {{famille.nom}}</h3>
 <div class="prods-cnt">
         
-        
-        {% for entity in famille.activecomposantes %}
-         {%set editId = entity.image %}
-        <div class="prod-box shadow">
-           
-            {%if(punkave_get_files('tmp/attachments/' ~ editId ) | length)%}
-                                <img src=
-                                '/uploads/tmp/attachments/{{editId}}/thumbnails/{{ punkave_get_files('tmp/attachments/' ~ editId ) | first }}'>
-                                 {%endif%}
+        {% if famille.sousFamilleData | length %}
+			{% for sousfamille in famille.sousFamilleData %}
+			<h4> {{sousfamille.nom}}</h4>
+			<div class="prods-cnt">
+				{% for entity in sousfamille.activecomposantes %}
+					
+					
+					
+					
+					{%set editId = entity.image %}
+			<div class="prod-box shadow">
+			   
+				{%if(punkave_get_files('tmp/attachments/' ~ editId ) | length)%}
+									<img src=
+									'/uploads/tmp/attachments/{{editId}}/thumbnails/{{ punkave_get_files('tmp/attachments/' ~ editId ) | first }}'>
+									 {%endif%}
 
-            {%set buyDisplay = "style=display:block" %}
-            {%set deleteDisplay = "style=display:none" %}
-            {% if entity.id in app.session.get('tokens')|keys %}
-                {%set buyDisplay = "style=display:none" %}
-                {%set deleteDisplay = "style=display:block" %}
-            {%endif%}
+				{%set buyDisplay = "style=display:block" %}
+				{%set deleteDisplay = "style=display:none" %}
+				{% if entity.id in app.session.get('tokens')|keys %}
+					{%set buyDisplay = "style=display:none" %}
+					{%set deleteDisplay = "style=display:block" %}
+				{%endif%}
 
-                <div class="delete-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" {{deleteDisplay}} data-toggle="tooltip" title="Supprimer du panier"></div>   
-                <div class="buy-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" {{buyDisplay}} data-toggle="tooltip" title="Ajouter au panier"></div>
-                
-            
+					<div class="delete-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" {{deleteDisplay}} data-toggle="tooltip" title="Supprimer du panier"></div>   
+					<div class="buy-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" {{buyDisplay}} data-toggle="tooltip" title="Ajouter au panier"></div>
+					
+				
 
-            <h3>
-                <a href="#">{{entity.nom}}</a>
-            </h3>
-            <div class="price-cnt">
-                <div class="price old">Dt {{entity.prix}}</div>
-                <div class="price">Dt {{entity.prixunitaire}}</div>
-            </div>
-            <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            </p>
+				<h3>
+					<a href="#">{{entity.nom}}</a>
+				</h3>
+				<div class="price-cnt">
+					<div class="price old">Dt {{entity.prix}}</div>
+					<div class="price">Dt {{entity.prixunitaire}}</div>
+				</div>
+				<p>
+					Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+				</p>
 
-        </div><!-- end product box prod-box -->
-        {% endfor %}
+			</div><!-- end product box prod-box -->
+			
+					
+					
+					
+				
+				{% endfor %}
+				
+			</div>
+			{% endfor %}
+        {% else %}
+			{% for entity in famille.activecomposantes %}
+			 {%set editId = entity.image %}
+			<div class="prod-box shadow">
+			   
+				{%if(punkave_get_files('tmp/attachments/' ~ editId ) | length)%}
+									<img src=
+									'/uploads/tmp/attachments/{{editId}}/thumbnails/{{ punkave_get_files('tmp/attachments/' ~ editId ) | first }}'>
+									 {%endif%}
+
+				{%set buyDisplay = "style=display:block" %}
+				{%set deleteDisplay = "style=display:none" %}
+				{% if entity.id in app.session.get('tokens')|keys %}
+					{%set buyDisplay = "style=display:none" %}
+					{%set deleteDisplay = "style=display:block" %}
+				{%endif%}
+
+					<div class="delete-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" {{deleteDisplay}} data-toggle="tooltip" title="Supprimer du panier"></div>   
+					<div class="buy-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" {{buyDisplay}} data-toggle="tooltip" title="Ajouter au panier"></div>
+					
+				
+
+				<h3>
+					<a href="#">{{entity.nom}}</a>
+				</h3>
+				<div class="price-cnt">
+					<div class="price old">Dt {{entity.prix}}</div>
+					<div class="price">Dt {{entity.prixunitaire}}</div>
+				</div>
+				<p>
+					Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
+				</p>
+
+			</div><!-- end product box prod-box -->
+			{% endfor %}
+        {% endif %}
         <!--<div class="prod-box shadow">
             <img src="{{ asset('img/product2.jpg') }}">
             <div class="buy-ico"></div>

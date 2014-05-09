@@ -54,7 +54,7 @@ class Famille
     * @ORM\JoinColumn(nullable=true)
     */
     private $famille;
-
+    
 
     /**
      * @ORM\OneToMany(targetEntity="Composante", mappedBy="famille")
@@ -64,6 +64,8 @@ class Famille
     private $active_composantes;
 
     private $imageFullPath;
+    
+    private $sousFamilleData;
 
 
     public function __construct()
@@ -247,5 +249,17 @@ class Famille
     {
         return $this->active_composantes;
     }
+    
+    public function setSousFamilleData($sousFamilleData)
+    {
+        $this->sousFamilleData = $sousFamilleData;
+    }
 
+    public function getSousFamilleData()
+    {
+        return $this->sousFamilleData;
+    }
+    
+	
+	
 }

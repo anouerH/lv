@@ -16,11 +16,35 @@ class FamilleRepository extends EntityRepository
 	*get With composante
 	**/
 	public function getWithComposantes()
-    {
-        
+    {   
         $query = $this->getEntityManager()->createQuery(
-            'SELECT f FROM LvSaladeBundle:Famille f JOIN f.composantes c ');
+            'SELECT f FROM LvSaladeBundle:Famille f JOIN f.composantes c WHERE f.famille IS NULL');
 
         return $query->getResult();
-    }   
+    }
+    
+    /*
+     * get with sub familys
+     */ 
+     
+    public function getWithSubFamilles()
+    {   
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT f FROM LvSaladeBundle:Famille f JOIN f.famille ff ');
+
+        return $query->getResult();
+    }
+    
+    
+    /*
+     * 
+     **/
+    public function getSubFamilys($family_id){
+		$query = $this->getEntityManager()->createQuery(
+            'SELECT f FROM LvSaladeBundle:Famille  f  WHERE f.famille = '.$family_id);
+
+        return $query->getResult();
+		
+	}
+       
 }
