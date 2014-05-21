@@ -66,23 +66,25 @@ assetic:
     use_controller: true
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
+    transport: smtp
+    host:      swiftmailer
+    username:  commandes@lvclubdiscount.tn
+    password:  azerty2014
 fos_user:
     db_driver:     orm                        # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                       # Le nom du firewall derrière lequel on utilisera ces utilisateurs
-    user_class:    Lv\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+    user_class:    Lv\UserBundle\Entity\User  # La classe de l'entité User que nous utilisons
     registration:
         form:
             type: lv_user_registration
-        #confirmation:
-        #    enabled:    true
-    #from_email:
-    #    address:        noreply@lvclubdiscount.tn
-    #    sender_name:    lvclubdiscount.tn
+        confirmation:
+          enabled:    true  
+          template:   LvUserBundle:Registration:email.html.twig		  
+          from_email:
+            address:        commandes@lvclubdiscount.tn
+            sender_name:    LV SALADE
+
+
 
 shtumi_useful :
     dependent_filtered_entities:
