@@ -1,4 +1,12 @@
 {% trans_default_domain 'FOSUserBundle' %}
+
+
+
+
+<div id="registration-edit-content">
+
+
+
 <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3 class="modal-title" id="myModalLabel">Inscription</h3>
@@ -6,8 +14,6 @@
     <p></p>
 
 
-
-<div id="registration-edit-content">
 <form id="register-form" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register form-horizontal">
     {#{ form_widget(form) }#}
 
@@ -19,6 +25,8 @@
         <div class="col-sm-6">
             {{ form_widget(form.nom, {'attr': {'class': 'form-control','placeholder': 'Nom'}}) }}
         </div>
+        <div style="clear:both;"></div>
+        {{ form_errors(form.nom, {'attr': {'class': 'text-error'}}) }}
     </div>
 
     <div class="form-group">
@@ -26,6 +34,8 @@
         <div class="col-sm-6">
             {{ form_widget(form.prenom, {'attr': {'class': 'form-control','placeholder': 'Prénom'}}) }}
         </div>
+        <div style="clear:both;"></div>
+        {{ form_errors(form.prenom, {'attr': {'class': 'text-error'}}) }}
     </div>
 
     
@@ -34,7 +44,10 @@
         {{ form_label(form.email, 'E-mail', {'label_attr': {'class': 'col-sm-4  control-label'}}) }}
         <div class="col-sm-6">
             {{ form_widget(form.email, {'attr': {'class': 'form-control','placeholder': 'E-mail'}}) }}
-        </div>
+            
+            <div style="clear:both;"></div>
+            {{ form_errors(form.email, {'attr': {'class': 'text-error'}}) }}
+        </div> 
     </div>
 
 
@@ -42,6 +55,9 @@
         {{ form_label(form.username, 'Pseudo', {'label_attr': {'class': 'col-sm-4  control-label'}}) }}
         <div class="col-sm-6">
             {{ form_widget(form.username, {'attr': {'class': 'form-control','placeholder': 'Pseudo'}}) }}
+
+            <div style="clear:both;"></div>
+            {{ form_errors(form.username, {'attr': {'class': 'text-error'}}) }}
         </div>
     </div>
 
@@ -50,6 +66,9 @@
         {{ form_label(form.plainPassword.first, 'Mot de passe', {'label_attr': {'class': 'col-sm-4  control-label'}}) }}
         <div class="col-sm-6">
             {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control','placeholder': 'Mot de passe'}}) }}
+
+            <div style="clear:both;"></div>
+            {{ form_errors(form.plainPassword.first, {'attr': {'class': 'text-error'}}) }}
         </div>
     </div>
 
@@ -58,6 +77,9 @@
         {{ form_label(form.plainPassword.second, 'Confirmation du mot de passe', {'label_attr': {'class': 'col-sm-4  control-label'}}) }}
         <div class="col-sm-6">
             {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control','placeholder': 'Confirmation du mot de passe'}}) }}
+
+            <div style="clear:both;"></div>
+            {{ form_errors(form.plainPassword.second, {'attr': {'class': 'text-error'}}) }}
         </div>
     </div>
 
@@ -66,6 +88,9 @@
         {{ form_label(form.phone, 'Tel', {'label_attr': {'class': 'col-sm-4  control-label'}}) }}
         <div class="col-sm-6">
             {{ form_widget(form.phone, {'attr': {'class': 'form-control','placeholder': 'Tel'}}) }}
+
+            <div style="clear:both;"></div>
+            {{ form_errors(form.phone, {'attr': {'class': 'text-error'}}) }}
         </div>
     </div>
     
@@ -76,6 +101,8 @@
             <div class="col-sm-6">
             {{ form_widget(form.adress, {'attr': {'class': 'form-control','placeholder': 'Adresse','rows':'5'}}) }}
             
+            <div style="clear:both;"></div>
+            {{ form_errors(form.adress, {'attr': {'class': 'text-error'}}) }}
             </div>
         </div>
 
