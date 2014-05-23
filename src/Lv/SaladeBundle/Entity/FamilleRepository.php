@@ -18,7 +18,7 @@ class FamilleRepository extends EntityRepository
 	public function getWithComposantes()
     {   
         $query = $this->getEntityManager()->createQuery(
-            'SELECT f FROM LvSaladeBundle:Famille f JOIN f.composantes c WHERE f.famille IS NULL');
+            'SELECT f FROM LvSaladeBundle:Famille f JOIN f.composantes c WHERE f.famille IN');
 
         return $query->getResult();
     }

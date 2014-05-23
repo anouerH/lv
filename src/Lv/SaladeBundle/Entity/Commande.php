@@ -64,6 +64,26 @@ class Commande
     private $vuecaisse;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="livraison", type="integer", nullable=true)
+     */
+    private $livraison;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="source", type="string", length=255, nullable=true)
+     */
+    private $source;
+
+    /**
+     * @ORM\Column(name="total", type="decimal", scale=2)
+     */
+    protected $total;
+
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -276,5 +296,74 @@ class Commande
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set livraison
+     *
+     * @param integer $livraison
+     * @return Commande
+     */
+    public function setLivraison($livraison)
+    {
+        $this->livraison = $livraison;
+
+        return $this;
+    }
+
+    /**
+     * Get livraison
+     *
+     * @return integer 
+     */
+    public function getLivraison()
+    {
+        return $this->livraison;
+    }
+
+    /**
+     * Set source
+     *
+     * @param string $source
+     * @return Commande
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+
+        return $this;
+    }
+
+    /**
+     * Get source
+     *
+     * @return string 
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * Set total
+     *
+     * @param string $total
+     * @return Commande
+     */
+    public function setTotal($total)
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    /**
+     * Get total
+     *
+     * @return string 
+     */
+    public function getTotal()
+    {
+        return $this->total;
     }
 }

@@ -1,0 +1,112 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="modal-title" id="myModalLabel">Inscription</h3>
+      </div>
+    <p></p>
+
+
+
+<div id="registration-edit-content">
+<form id="register-form" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register form-horizontal">
+    {#{ form_widget(form) }#}
+
+
+
+
+ 
+
+    
+
+    <div class="form-group">
+		{{ form_label(form.email, 'E-mail', {'label_attr': {'class': 'col-sm-4  control-label'}}) }}
+        <div class="col-sm-6">
+        	{{ form_widget(form.email, {'attr': {'class': 'form-control','placeholder': 'E-mail'}}) }}
+        </div>
+    </div>
+
+
+    <div class="form-group">
+		{{ form_label(form.username, 'Pseudo', {'label_attr': {'class': 'col-sm-4  control-label'}}) }}
+        <div class="col-sm-6">
+        	{{ form_widget(form.username, {'attr': {'class': 'form-control','placeholder': 'Pseudo'}}) }}
+        </div>
+    </div>
+
+
+    <div class="form-group">
+		{{ form_label(form.plainPassword.first, 'Mot de passe', {'label_attr': {'class': 'col-sm-4  control-label'}}) }}
+        <div class="col-sm-6">
+        	{{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control','placeholder': 'Mot de passe'}}) }}
+        </div>
+    </div>
+
+
+    <div class="form-group">
+		{{ form_label(form.plainPassword.second, 'Confirmation du mot de passe', {'label_attr': {'class': 'col-sm-4  control-label'}}) }}
+        <div class="col-sm-6">
+        	{{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control','placeholder': 'Confirmation du mot de passe'}}) }}
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        {{ form_label(form.phone, 'Tel', {'label_attr': {'class': 'col-sm-4  control-label'}}) }}
+        <div class="col-sm-6">
+            {{ form_widget(form.phone, {'attr': {'class': 'form-control','placeholder': 'Tel'}}) }}
+        </div>
+    </div>
+    
+
+
+        <div class="form-group ">
+            {{ form_label(form.adress, 'Adresse', {'label_attr': {'class': 'col-sm-4  control-label'}}) }}
+            <div class="col-sm-6">
+            {{ form_widget(form.adress, {'attr': {'class': 'form-control','placeholder': 'Adresse','rows':'5'}}) }}
+            
+            </div>
+        </div>
+
+
+
+    {{ form_rest(form) }}
+
+    
+    <!--<div>
+        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+    </div>-->
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">fermer</button>
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+      </div>
+
+</form>
+</div>
+<script>
+    //callback handler for form submit
+    $("#register-form").submit(function(e)
+    {
+        var postData = $(this).serializeArray();
+        var formURL = $(this).attr("action");
+        $.ajax(
+        {
+            url : formURL,
+            type: "POST",
+            data : postData,
+            success:function(data, textStatus, jqXHR) 
+            {
+            
+                $('#registration-edit-content').html(data);
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) 
+            {
+                //if fails      
+            }
+        });
+        e.preventDefault(); //STOP default action
+        // e.unbind(); //unbind. to stop multiple form submit.
+    });
+</script>

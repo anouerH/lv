@@ -35,7 +35,8 @@ class CommandeComposanteController extends Controller
 		
 	
        foreach($familles as $famille) {
-		   
+		  
+            
 			// vérifiér si la faille courantes possede des sous famille 
 			$sousfamilles = $em->getRepository('LvSaladeBundle:Famille')->getSubFamilys($famille->getId());
 			
