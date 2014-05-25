@@ -19,6 +19,7 @@ class ComposanteRepository extends EntityRepository
         $qb = $this->createQueryBuilder('c')
             //->where('j.expires_at > :date')
             //->setParameter('date', date('Y-m-d H:i:s', time()))
+            ->where('c.etat = 1')
             ->orderBy('c.createdAt', 'DESC');
 
         if($famille_id)

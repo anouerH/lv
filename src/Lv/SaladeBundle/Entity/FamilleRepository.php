@@ -12,13 +12,26 @@ use Doctrine\ORM\EntityRepository;
 class FamilleRepository extends EntityRepository
 {
 
-	/**
-	*get With composante
-	**/
-	public function getWithComposantes()
+    /**
+    *get With composante
+    **/
+    public function getWithComposantes()
+    {
+        
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT f FROM LvSaladeBundle:Famille f JOIN f.composantes c WHERE c.etat = 1 ');
+
+        return $query->getResult();
+    }  
+
+
+    /**
+    *get With composante
+    **/
+    public function getWithComposantesForCmde()
     {   
         $query = $this->getEntityManager()->createQuery(
-            'SELECT f FROM LvSaladeBundle:Famille f JOIN f.composantes c WHERE f.famille IN');
+            'SELECT f FROM LvSaladeBundle:Famille f WHERE f.famille IS NULL');
 
         return $query->getResult();
     }
@@ -40,11 +53,11 @@ class FamilleRepository extends EntityRepository
      * 
      **/
     public function getSubFamilys($family_id){
-		$query = $this->getEntityManager()->createQuery(
+        $query = $this->getEntityManager()->createQuery(
             'SELECT f FROM LvSaladeBundle:Famille  f  WHERE f.famille = '.$family_id);
 
         return $query->getResult();
-		
-	}
+        
+    }
        
 }

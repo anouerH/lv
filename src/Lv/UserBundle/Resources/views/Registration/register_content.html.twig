@@ -46,7 +46,7 @@
             {{ form_widget(form.email, {'attr': {'class': 'form-control','placeholder': 'E-mail'}}) }}
             
             <div style="clear:both;"></div>
-            {{ form_errors(form.email, {'attr': {'class': 'text-error'}}) }}
+            {{ form_errors(form.email, {'attr': {'class': 'alert-danger'}}) }}
         </div> 
     </div>
 
@@ -57,7 +57,7 @@
             {{ form_widget(form.username, {'attr': {'class': 'form-control','placeholder': 'Pseudo'}}) }}
 
             <div style="clear:both;"></div>
-            {{ form_errors(form.username, {'attr': {'class': 'text-error'}}) }}
+            {{ form_errors(form.username, {'attr': {'class': 'alert-danger'}}) }}
         </div>
     </div>
 
