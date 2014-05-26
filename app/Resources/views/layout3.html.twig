@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<!--
+        Miniport 2.5 by HTML5 UP
+        html5up.net | @n33co
+        Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+    <head>
+        <title>{% block title %} LV CLUB - BAR A SALADES {% endblock %}</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,600,700" rel="stylesheet" />
+        <script src="http://code.jquery.com/jquery-1.7.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
+
+
+
+        <script src="{{ asset('js/layout2/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/clockpicker.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/layout2/config.js') }}"></script>
+        <script src="{{ asset('js/layout2/skel.min.js') }}"></script>   
+        <script type="text/javascript" src="{{ asset('js/jquery.anoslide.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/layout2/jquery.bxslider.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('js/layout2/jquery.tooltipster.min.js') }}"></script>
+
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/clockpicker.css') }}" type="text/css" /> 
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" /> 
+        <link rel="stylesheet" href="{{ asset('css/layout2/skel-noscript.css') }}" type="text/css"  />
+        <link rel="stylesheet" href="{{ asset('css/layout2/style.css') }}" type="text/css"  />
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}" type="text/css"  />
+        <link rel="stylesheet" href="{{ asset('css/layout2/style-desktop.css') }}" type="text/css"  />
+        <link rel="stylesheet" href="{{ asset('css/layout2/jquery.bxslider.css') }}" type="text/css"  />
+		<link rel="stylesheet" href="{{ asset('css/layout2/tooltipster.css') }}" type="text/css"  />
+    {% endblock %}
+<!--<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>-->
+
+
+        <!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
+        <!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+        <!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+    </head>
+    <body>
+        
+        <div style="width: 80%; background-color: #fff; border-radius: 40px; margin: 20px auto">
+
+        <!-- Nav -->
+        <nav id="nav">
+            <div style="float: left; margin-left: 93px; margin-top: 30px"><img src="{{ asset('images/logo25.png') }}" alt="LV CLUB BAR A SALADES" /></div>
+            <!--<ul class="container">
+                    <li><a href="#top">Accueil</a></li>
+                    <li><a href="#work">Composantes</a></li>
+                    <li><a href="#portfolio">Commander</a></li>
+                    <li><a href="#contact">Contact</a></li>
+            </ul>-->
+            <ul style="float: right; margin: 0 30px 0 0">
+                <li><a href="#">Bienvenue {{app.user.username}}</a></li>
+                <li><a href="{{path('fos_user_security_logout')}}"><img src="{{ asset('images/disconn.png') }}" alt="SE DECONNECTER" /></a></li>
+            </ul>
+
+        </nav>
+
+        <!-- Home -->
+        <div class="wrapper wrapper-style1 wrapper-first">
+            <article class="container" id="top">
+                <div class="row">
+                    <div class="12u">
+
+                        <!--<header>
+                                <h1>Bienvenu sur <strong>LV CLUB SALADES</strong>.</h1>
+                        </header>-->
+
+
+
+                                                                      {% block body %}
+          {% endblock %}
+
+
+
+
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="footer-top-border-outer">		
+			<div class="footer-top-border">
+			</div>		
+		</div>
+		
+			
+		<div class="footer-main">
+			
+						
+				<div id="footer-widget-area">
+	
+					<div id="first" class="first-widget widget hb-animate-element right-to-left">
+				<aside id="advertisewidget-3" class="widgets-advertise"><ul class="main-ul" style="display: block;">
+                                        <li><a href="http://template-demo.org/woo/WCM01/WCM010010/#" title="Advertise">
+				<img src="{{ asset('css/layout2/images/workinghours.png') }}" />
+                                            </a>
+		</li></ul></aside>			</div><!-- #first .widget-area -->
+				
+					<div id="second" class="second-widget widget hb-animate-element top-to-bottom">
+					<aside id="workinghourswidget-2" class="widgets-working-hours">		 <div class="working-hours"> 
+		 		 <h2 class="widget-title">Horaires d'ouverture</h2><ul class="main-ul" style="display: block;"><li>				<div class="hours-content"> 	
+					<div class="time1">			
+                                            <span class="title">Lundi &agrave; Vendredi</span>
+						<span>10:00am to 00:00pm</span>		
+					
+					</div>
+					<div class="time2">
+						<span class="title">Samedi &amp; Diamnche</span>					
+						<span>10:00am to 01:00pm</span>
+						
+					</div>						
+		</div>
+		</li></ul></div></aside>			</div><!-- #second .widget-area -->
+				
+					<div id="third" class="third-widget widget hb-animate-element top-to-bottom">					
+                                            <aside id="recentpostswidget-2" class="widgets-recent-posts"><h2 class="widget-title">Dernier&egrave;s commantaires</h2><ul class="main-ul" style="display: block;"><li>	
+                                                        <!--<ul>
+		<li>
+			<div class="single-post">
+								<h3 class="post-title "><a href="http://template-demo.org/woo/WCM01/WCM010010/nostrum-iesum-christum-2/" title="Nostrumy Iesum ">
+				Nostrumy Iesum </a></h3>
+									<div class="post-img"><img width="50" height="50" src="./Home   Food_files/avast-50x50.jpg" class="attachment-recentpost-thumb wp-post-image" alt="avast"></div>
+				 					 	
+				<span class="post-date">4 Mar, 2014</span>
+			</div>
+			</li>
+		<li>
+			<div class="single-post">
+								<h3 class="post-title "><a href="http://template-demo.org/woo/WCM01/WCM010010/neque-euismod-congue-2/" title="Nequlu euismod ">
+				Nequlu euismod </a></h3>
+									<div class="post-img"><img width="50" height="50" src="./Home   Food_files/foodfreny-50x50.jpg" class="attachment-recentpost-thumb wp-post-image" alt="foodfreny"></div>
+				 					 	
+				<span class="post-date">4 Mar, 2014</span>
+			</div>
+			</li>
+		<li>
+			<div class="single-post">
+								<h3 class="post-title "><a href="http://template-demo.org/woo/WCM01/WCM010010/eget-augue-vitae-2/" title="Egety augue vit">
+				Egety augue vit</a></h3>
+									<div class="post-img"><img width="50" height="50" src="./Home   Food_files/sausage-50x50.jpg" class="attachment-recentpost-thumb wp-post-image" alt="sausage"></div>
+				 					 	
+				<span class="post-date">4 Mar, 2014</span>
+			</div>
+			</li>
+		</ul>-->
+	</li></ul></aside>			</div><!-- #third .widget-area -->
+				
+					<div id="fourth" class="fourth-widget widget hb-animate-element left-to-right">
+                                            <div class="mod-wrapper-flat clearfix">		
+							<h3 class="header">			
+                                                            <span><h2>Contacts</h2></span>				</h3>
+				<span class="sp-badge title1"></span>							
+
+<div class="customtitle1 time1">
+	<div style="text-align: left;"><i style="" class="icon-envelope "></i>&nbsp; organic (@) yoursite.com<br><i style="" class="icon-phone "></i>&nbsp; +555.123.4567<br><i style="" class="icon-print "></i>&nbsp; +555.123.4568<br><i style="" class="icon-building "></i>&nbsp; 2nd Ave and Washington</div>
+
+<p><span style="line-height: 1.3em;"><a href="#" target="  " class="btn btn-link social btn-"><i style="" class="icon-facebook "></i></a>&nbsp;<a href="#" target="  " class="btn btn-link social btn-"><i style="" class="icon-twitter "></i></a>&nbsp;<a href="#" target="  " class="btn btn-link social btn-"><i style="" class="icon-pinterest "></i></a>&nbsp;<a href="#" target="  " class="btn btn-link social btn-"><i style="" class="icon-google-plus "></i></a>&nbsp;<a href="#" target="  " class="btn btn-link social btn-"><i style="" class="icon-linkedin "></i></a></span></p></div>
+		</div>
+                                        </div><!-- #fourth .widget-area -->
+				
+			</div><!-- #footer-widget-area -->
+	<div class="clear"></div>				<!-- End footer-bottom-border--> 
+			
+
+		</div>	
+            			<div class="footer-bottom"><!--Start footer-bottom-border --> 
+					<div class="footer-bottom-inner">							
+							<div class="site-info hb-animate-element left-to-right">
+                                                            Copyright &copf; LV CLUB 2014 						
+																
+							</div><!-- .site-info -->					
+							<div class="footer-menu-links hb-animate-element bottom-to-top">				
+								<ul id="menu-mainmenu-1" class="footer-menu"><li class="nav-menu menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-212 current_page_item menu-item-2270"><a href="./Home   Food_files/Home   Food.htm">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2666"><a href="http://template-demo.org/woo/WCM01/WCM010010/shop/">Shop</a></li>
+<li class="nav-menu menu-item menu-item-type-post_type menu-item-object-page menu-item-2271"><a href="http://template-demo.org/woo/WCM01/WCM010010/blog/">Blog</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2684"><a href="http://template-demo.org/woo/WCM01/WCM010010/menu-card/">Menu</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2769"><a href="http://template-demo.org/woo/WCM01/WCM010010/recipes/">Recipes</a></li>
+</ul>					
+							</div><!-- #footer-menu-links -->							
+							 						  
+								<div class="footer-followus hb-animate-element right-to-left">
+									<div id="branding">	
+		</div>
+								</div>
+												
+					</div>
+			</div>
+		</footer>
+        
+        </div>
+
+        
+    </body>
+</html>

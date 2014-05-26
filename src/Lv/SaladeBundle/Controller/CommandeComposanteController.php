@@ -291,17 +291,27 @@ class CommandeComposanteController extends Controller
         $request = $this->getRequest();
         $id = $request->get('id');
         $price = $request->get('price');
+        $picture = $request->get('picture');
+
+        $images = array();
+        if($picture)
+            $images =  $this->get('punk_ave.file_uploader')->getFiles(array('folder' => 'tmp/attachments/' . $picture));
+        $image = null;
+        if(count($images)){
+         $image = $images[0];
+        }
+
         $session = $request->getSession();
         $sumPrice = 0.00;
         if($session->has('tokens')){
             $tokens = $session->get('tokens');
-            $tokens[$id] = array('qte' => 1, 'price'=> $price);;
+            $tokens[$id] = array('qte' => 1, 'price'=> $price, 'picture'=>$picture, 'image'=>$image);
             $session->set('tokens', $tokens);
             foreach ($tokens as $key => $value) {
                 $sumPrice += $value['price'];
             }
         }else{
-            $tokens[$id] = array('qte' => 1, 'price'=> $price);;
+            $tokens[$id] = array('qte' => 1, 'price'=> $price, 'picture'=>$picture, 'image'=>$image);;
             $session->set('tokens', $tokens);
             $sumPrice +=$price;
         }

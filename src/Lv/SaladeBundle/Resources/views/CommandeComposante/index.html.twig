@@ -1,245 +1,219 @@
-{% extends "::layout.html.twig" %}
+{% extends "::layout3.html.twig" %}
 
 {% block body -%}
 
 <link href="{{ asset('bundles/lvsalade/css/style.css') }}" rel="stylesheet" />
 
+    
+    <!--------------------------------------------------------------------------------------------------------->
+<div class="container">
+    <div id="btn_etapes">
+        <div class="row">
+            {% for famille in familles %}
+            <div id="btn_etape{{famille.id}}" class="btn_etape col-lg-4 col-md-4">
+            <!-- btn_etape_active-->
+                <img src="/images/{{famille.nom}}.png" alt="{{famille.nom}}" />
+                {% if famille.id != '3' %}
+                <i class="flesh"></i>
+                {% endif %}
+            </div>
+            {% endfor %}
 
-<script>
-$(function(){ 
-    $('#list').click(function(){    
-        $('.prod-box').animate({opacity:0},function(){
-            $('.grid').removeClass('grid-active');
-            $('.list').addClass('list-active');
-            $('.prod-box').attr('class', 'prod-box-list shadow');
-            $('.prod-box-list').stop().animate({opacity:1});
-        });
-    });
-
-    $('#grid').click(function(){  
-        $('.prod-box-list').animate({opacity:0},function(){
-            $('.list').removeClass('list-active');
-            $('.grid').addClass('grid-active');
-            $('.prod-box-list').attr('class', 'prod-box shadow');
-            $('.prod-box').stop().animate({opacity:1});
-        });
-    });
-});
-</script>
-    <h1>Commander</h1>
-    <div class="pull-right">
-        <span id="total-card" class="glyphicon glyphicon-shopping-cart">
-            {%if(app.session.get('tokens') | length == 0)%}
-                
-                <span style="display:none">
-                    <b class="sumElement">{{app.session.get('tokens') | length}}</b> élément(s)  sélectionné(s) 
-                    Total <b class="sumPrice alert alert-danger">0.00 DT</b>
-                    <a  class="btn btn-success" href="{{path('overview')}}">Commander</a>
-                </span>
-            {%endif%}
-            {%if(app.session.get('tokens') | length)%}
-                {%set sumPrice = 0.00 %}
-                {%for token in app.session.get('tokens') %}
-                    {%set sumPrice = sumPrice + token.price  %}
-                {%endfor%}
-                <b class="sumElement">{{app.session.get('tokens') | length}}</b> élément(s)  sélectionné(s) 
-                Total <b class="sumPrice alert alert-danger">{{sumPrice}} DT</b>
-                <a  class="btn btn-success" href="{{path('overview')}}">Commander</a>
-            {%else%}
-                <span class='nothing'>Aucun élément  sélectionné</span>
-            {%endif%}
-        </span>
+        </div>
     </div>
-    <!--<div id="list" class="list "></div>
-        <div id="grid" class="grid"></div>
-        <div class="clear"></div>-->
-{% for famille in familles %}
-   
-<h3> {{famille.nom}}</h3>
-<div class="prods-cnt">
+    <div class="row">
+        <div id="content_commande" class="col-lg-10 col-md-10">
         
+        {% for famille in familles %}
+        <div class="content_etape{{famille.id}} content_etape">
+    <div style="width: 100%; float: left; margin: 20px 0">           
+        <div style="width: 100%; float: left"><div class="prods-cnt">
+
         {% if famille.sousFamilleData | length %}
-			{% for sousfamille in famille.sousFamilleData %}
-			<h4> {{sousfamille.nom}}</h4>
-			<div class="prods-cnt">
-				{% for entity in sousfamille.activecomposantes %}
-					
-					
-					
-					
-					{%set editId = entity.image %}
-			<div class="prod-box shadow">
-			   
-				{%if(punkave_get_files('tmp/attachments/' ~ editId ) | length)%}
-									<img src=
-									'/uploads/tmp/attachments/{{editId}}/thumbnails/{{ punkave_get_files('tmp/attachments/' ~ editId ) | first }}'>
-									 {%endif%}
+            {% for sousfamille in famille.sousFamilleData %}
+            
+                <ul class="prods-cnt-sub">
+                <h4> {{sousfamille.nom}}</h4>
+                {% for entity in sousfamille.activecomposantes %}
+                    
+                    
+                    
+                    
+                    {%set editId = entity.image %}
+            <li class="prod-box shadow">
+               <div class="composante">
+            <div class="image_composante" style="float:left; width: 100px">
+                {%if(punkave_get_files('tmp/attachments/' ~ editId ) | length)%}
+                   <div style="width: 110px; height: 123px;"><img src='/uploads/tmp/attachments/{{editId}}/thumbnails/{{ punkave_get_files('tmp/attachments/' ~ editId ) | first }}' style=' -moz-border-radius: 50%; border-radius: 50%;'></div>
+                {%endif%}
+            </div>
+            <div class="details_composante" style="float:left; width: 300px">
+                <h3><a href="#">{{entity.nom}}</a></h3>
+                <div class="price-cnt">
+                    <!--<div class="price old">Dt {{entity.prix}}</div>-->
+                    <div class="price">{{entity.prixunitaire}} dt</div>
+                </div>
+                
+                <div class="price">{{entity.calories}} cal</div>
+                {%set buyDisplay = "style=display:block" %}
+                {%set deleteDisplay = "style=display:none" %}
+                {% if entity.id in app.session.get('tokens')|keys %}
+                    {%set buyDisplay = "style=display:none" %}
+                    {%set deleteDisplay = "style=display:block" %}
+                {%endif%}
+                    <div class="delete-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" picture="{{entity.image}}" {{deleteDisplay}} data-toggle="tooltip" title="Supprimer du panier"></div>   
+                    <div class="buy-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" picture="{{entity.image}}" {{buyDisplay}} data-toggle="tooltip" title="Ajouter au panier"></div>
 
-				{%set buyDisplay = "style=display:block" %}
-				{%set deleteDisplay = "style=display:none" %}
-				{% if entity.id in app.session.get('tokens')|keys %}
-					{%set buyDisplay = "style=display:none" %}
-					{%set deleteDisplay = "style=display:block" %}
-				{%endif%}
+                
+                
+            </div>
+                
+            </div>
 
-					<div class="delete-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" {{deleteDisplay}} data-toggle="tooltip" title="Supprimer du panier"></div>   
-					<div class="buy-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" {{buyDisplay}} data-toggle="tooltip" title="Ajouter au panier"></div>
-					
-				
-
-				<h3>
-					<a href="#">{{entity.nom}}</a>
-				</h3>
-				<div class="price-cnt">
-					<div class="price old">Dt {{entity.prix}}</div>
-					<div class="price">Dt {{entity.prixunitaire}}</div>
-				</div>
-				<p>
-					Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-				</p>
-
-			</div><!-- end product box prod-box -->
-			
-					
-					
-					
-				
-				{% endfor %}
-				
-			</div>
-			{% endfor %}
+            </li><!-- end product box prod-box -->
+            
+                    
+                    
+                    
+                
+                {% endfor %}
+                
+            </ul>
+            {% endfor %}
         {% else %}
-			{% for entity in famille.activecomposantes %}
-			 {%set editId = entity.image %}
-			<div class="prod-box shadow">
-			   
-				{%if(punkave_get_files('tmp/attachments/' ~ editId ) | length)%}
-									<img src=
-									'/uploads/tmp/attachments/{{editId}}/thumbnails/{{ punkave_get_files('tmp/attachments/' ~ editId ) | first }}'>
-									 {%endif%}
+        <ul style="min-height: 200px !important">
+            {% for entity in famille.activecomposantes %}
+             {%set editId = entity.image %}
+            <li class="prod-box shadow">
+            <div class="composante">
+            <div class="image_composante" style="float:left; width: 100px">
+                {%if(punkave_get_files('tmp/attachments/' ~ editId ) | length)%}
+                   <div style="width: 110px; height: 123px;"><img src='/uploads/tmp/attachments/{{editId}}/thumbnails/{{ punkave_get_files('tmp/attachments/' ~ editId ) | first }}' style=' -moz-border-radius: 50%; border-radius: 50%;'></div>
+                {%endif%}
+            </div>
+            <div class="details_composante" style="float:left; width: 300px">
+                <h3><a href="#">{{entity.nom}}</a></h3>
+                <div class="price-cnt">
+                    <!--<div class="price old">Dt {{entity.prix}}</div>-->
+                    <div class="price">{{entity.prixunitaire}} dt</div>
+                </div>
+                
+                <div class="price">{{entity.calories}} cal</div>
+                {%set buyDisplay = "style=display:block" %}
+                {%set deleteDisplay = "style=display:none" %}
+                {% if entity.id in app.session.get('tokens')|keys %}
+                    {%set buyDisplay = "style=display:none" %}
+                    {%set deleteDisplay = "style=display:block" %}
+                {%endif%}
+                    <div class="delete-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" picture="{{entity.image}}"{{deleteDisplay}} data-toggle="tooltip" title="Supprimer du panier"></div>   
+                    <div class="buy-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" picture="{{entity.image}}"{{buyDisplay}} data-toggle="tooltip" title="Ajouter au panier"></div>
 
-				{%set buyDisplay = "style=display:block" %}
-				{%set deleteDisplay = "style=display:none" %}
-				{% if entity.id in app.session.get('tokens')|keys %}
-					{%set buyDisplay = "style=display:none" %}
-					{%set deleteDisplay = "style=display:block" %}
-				{%endif%}
-
-					<div class="delete-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" {{deleteDisplay}} data-toggle="tooltip" title="Supprimer du panier"></div>   
-					<div class="buy-ico" rel="{{entity.id}}" price="{{entity.prixunitaire}}" {{buyDisplay}} data-toggle="tooltip" title="Ajouter au panier"></div>
-					
-				
-
-				<h3>
-					<a href="#">{{entity.nom}}</a>
-				</h3>
-				<div class="price-cnt">
-					<div class="price old">Dt {{entity.prix}}</div>
-					<div class="price">Dt {{entity.prixunitaire}}</div>
-				</div>
-				<p>
-					Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-				</p>
-
-			</div><!-- end product box prod-box -->
-			{% endfor %}
+                
+                
+            </div>
+                
+            </div>
+            </li><!-- end product box prod-box -->
+            {% endfor %}
+                        </ul>
         {% endif %}
-        <!--<div class="prod-box shadow">
-            <img src="{{ asset('img/product2.jpg') }}">
-            <div class="buy-ico"></div>
-            <h3>
-                <a href="#">Feather Dress With Embellished Lace Top</a>
-            </h3>
-            <div class="price-cnt">
-                <div class="price old">$165.00</div>
-                <div class="price">$99.00</div>
+        
+
+
+    </ul>
+        </div></div></div>
+        </div>
+    {% endfor %}
+
+        </div>
+        <div id="aside" class="col-lg-2 col-md-2">
+            <div class="total">
+                <h2 class="titre_bloc_aside">Total</h2>
+                <div class="prix">10.500DT</div>
+                <div class="calorie">250 cal</div>
+                                <span id="total-card">
+                                {%if(app.session.get('tokens') | length == 0)%}
+
+                                    <span style="display:none">
+                                        <!--<b class="sumElement">{{app.session.get('tokens') | length}}</b>-->
+                                        <div style="float: left; width: 50%">
+                                            <b class="sumPrice">0 <sup>dt</sup></b>            
+                                            <p style="float: left; font-size:13px !important"><span class="sumElement tooltip1" style="float: left">{{app.session.get('tokens') | length}}</span> <span style="float: left" class="tooltip1">&nbsp;composante(s)</span></p>
+                                        </div>
+                                        <div style="float: left; width: 50%">
+                                            <a  class="btn-commander" title="Passer ma commande" alt="Passer ma commande" href="{{path('overview')}}"></a>
+                                        </div>
+                                    </span>
+                                {%endif%}
+                                {%if(app.session.get('tokens') | length)%}
+                                    {%set sumPrice = 0.000 %}
+                                    {%for token in app.session.get('tokens') %}
+                                        {%set sumPrice = sumPrice + token.price  %}
+                                    {%endfor%}
+                                <div style="float: left; width: 50%" class="prix">
+                                    <b class="sumPrice">{{sumPrice}} <sup>DT</sup></b>            
+                                    <p style="float: left; font-size:13px !important"><span class="sumElement tooltip1" style="float: left" >{{app.session.get('tokens') | length}}</span> <span style="float: left" class="tooltip1">&nbsp;composante(s)</span></p>
+                                </div>
+                                <div style="float: left; width: 50%">
+                                    <a  class="btn-commander" title="Passer ma commande" alt="Passer ma commande" href="{{path('overview')}}"></a>
+                                </div>
+                                {%else%}
+                                    <span class='nothing'>Aucune composante  sélectionnée</span>
+                                {%endif%}
+                            </span>
+            </div
+
+
+
+
+            <div id="products-recap">
+        
+                {%if(app.session.get('tokens') | length)%}
+                    {%for key, token in app.session.get('tokens') %}
+                    {%set editId = token.picture %}
+                        {%if(punkave_get_files('tmp/attachments/' ~ editId ) | length)%}
+                            <div><img src=
+                            '/uploads/tmp/attachments/{{editId}}/thumbnails/{{ punkave_get_files('tmp/attachments/' ~ editId ) | first }}'> <span class='delete-ico' rel="{{key}}"><a href="">supprimer</a></span> </div>
+                        {%endif%}
+                    {%endfor%}
+                {%endif%}
+
             </div>
-            <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            </p>
+
+
+
+
+        </div>
+    </div>
+</div>
+</div>
+    <!--------------------------------------------------------------------------------------------------------->
+    
+    <script type="text/javascript">
+    $( document ).ready(function(){
+        $('.btn_etape').click(function(){
+            $('.content_etape').hide();
+            btn_id = $(this).attr("id");
             
-            
+            {% for famille in familles %}
+                if(btn_id == "btn_etape{{famille.id}}"){
+                    $('.content_etape{{famille.id}}').fadeIn();
+                    $('.btn_etape').removeClass("btn_etape_active");
+                    $(this).addClass("btn_etape_active");
+                }
+            {% endfor %}
 
-        </div>
-
-        <div class="prod-box shadow">
-            <img src="{{ asset('bundles/lvsalade/img/product1.jpg') }}">
-            <div class="buy-ico"></div>
-            <h3>
-                <a href="#">Feather Dress With Embellished Lace Top</a>
-            </h3>
-            <div class="price-cnt">
-                <div class="price old">$96.00</div>
-                <div class="price">$45.00</div>
-            </div>
-            <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            </p>
-
-        </div>
-        <div class="prod-box shadow">
-            <img src="img/product2.jpg">
-            <div class="buy-ico"></div>
-            <h3>
-                <a href="#">Feather Dress With Embellished Lace Top</a>
-            </h3>
-            <div class="price-cnt">
-                <div class="price old">$95.00</div>
-                <div class="price">$55.00</div>
-            </div>
-            <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            </p>
-
-        </div>
-
-        <div class="prod-box shadow">
-            <img src="img/product3.jpg">
-            <div class="buy-ico"></div>
-            <h3>
-                <a href="#">Feather Dress With Embellished Lace Top</a>
-            </h3>
-            <div class="price-cnt">
-                <div class="price old">$95.00</div>
-                <div class="price">$55.00</div>
-            </div>
-            <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            </p>
-
-        </div> 
-
-
-        <div class="prod-box shadow">
-            <img src="img/product4  .jpg">
-            <div class="buy-ico"></div>
-            <h3>
-                <a href="#">Feather Dress With Embellished Lace Top</a>
-            </h3>
-            <div class="price-cnt">
-                <div class="price old">$95.00</div>
-                <div class="price">$55.00</div>
-            </div>
-            <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.
-            </p>
-
-        </div>  -->
-
-
-    </div> 
-    {% endfor %} 
-
-
-
-
+        });     
+    });
+    </script>
+    
     <script type="text/javascript">
         $(".buy-ico").click(function(){ 
         var id    = $(this).attr('rel');
         var price = $(this).attr('price');
         //var DATA  = 'id=' + id;
         var DATA = {id: id, price: price};
-        
+        var parent_ = $(this).parent();
         var urlTwig = "{{ url('addToCart') }}";
         //urlTwig = urlTwig.replace("threadIdVal", id);
         $(this).hide();
@@ -253,7 +227,11 @@ $(function(){
                 $('#total-card .nothing').hide();
 
                 $('#total-card  .sumElement').html(data['length']); 
-                $('#total-card  .sumPrice').html(data['sumprice']+" DT"); 
+                $('#total-card  .sumPrice').html(data['sumprice']+" dt");
+                
+                //alert(.find(li).attr('class'));
+                parent_.removeClass('shadow');
+                parent_.addClass('shadow2');
                 
                 $(".delete-ico[rel="+id+"]").show();
                 
@@ -261,9 +239,79 @@ $(function(){
         });   
         return false;
     });
+    
+    /*$(".buy-ico-double").click(function(){ 
+        var id    = $(this).attr('rel');
+        var price = $(this).attr('price');
+        //var DATA  = 'id=' + id;
+        var DATA = {id: id, price: price};
+        var parent_ = $(this).parent();
+        var urlTwig = "{#{ url('changeToDouble') }#}";
+        //urlTwig = urlTwig.replace("threadIdVal", id);
+        $(this).hide();
+        $.ajax({
+            type: "GET",
+            url: urlTwig,
+            data: DATA,
+            cache: false,
+            success: function(data){
+                $('#total-card span').show();
+                $('#total-card .nothing').hide();
+
+                $('#total-card  .sumElement').html(data['length']); 
+                $('#total-card  .sumPrice').html(data['sumprice']+" dt");
+
+                $(".delete-ico[rel="+id+"]").show();
+                $(".buy-ico-simple[rel="+id+"]").show();
+                
+            }
+        });   
+        return false;
+    });*/
+    
+    /*$(".buy-ico-simple").click(function(){ 
+        var id    = $(this).attr('rel');
+        var price = $(this).attr('price');
+        //var DATA  = 'id=' + id;
+        var DATA = {id: id, price: price};
+        var parent_ = $(this).parent();
+        var urlTwig = "{#{ url('changeToSimple') }#}";
+        //urlTwig = urlTwig.replace("threadIdVal", id);
+        $(this).hide();
+        $.ajax({
+            type: "GET",
+            url: urlTwig,
+            data: DATA,
+            cache: false,
+            success: function(data){
+                $('#total-card span').show();
+                $('#total-card .nothing').hide();
+
+                $('#total-card  .sumElement').html(data['length']); 
+                $('#total-card  .sumPrice').html(data['sumprice']+" dt");
+
+                $(".delete-ico[rel="+id+"]").show();
+                $(".buy-ico-simple[rel="+id+"]").show();
+                
+            }
+        });   
+        return false;
+    });*/
+            
+    
+    /*$(document).ready(function() {
+
+            $('.tooltip1').tooltipster({
+                content: $('{% for elt in selection %}<div>{{elt.nom}}</div>{% endfor %}'),
+                position: 'bottom-left',
+            });
+    });*/
+    
+    
     $(".delete-ico").click(function(){ 
         var id = $(this).attr('rel');
         var DATA = 'id=' + id;
+        var parent_ = $(this).parent();
         var urlTwig = "{{ url('RemoveFromCart') }}";
         $(this).hide();
         $.ajax({
@@ -276,8 +324,10 @@ $(function(){
                 $('#total-card .nothing').hide();
                 
                 $('#total-card  .sumElement').html(data['length']); 
-                $('#total-card  .sumPrice').html(data['sumprice']+" DT"); 
+                $('#total-card  .sumPrice').html(data['sumprice']+" dt"); 
 
+                parent_.removeClass('shadow2');
+                parent_.addClass('shadow');
                 
                 $(".buy-ico[rel="+id+"]").show();
                 
